@@ -1,30 +1,45 @@
 import Axios from "axios";
 import NewsItem from "../components/NewsItem";
 
-
-
 type newsItems = {
-    source: {
-        id: any;
-        name: string;
-    };
-    title: string;
-    description: string;
-    url: string;
-    urlToImage: string;
-    publishedAt: string;
-    content: string;
-  }[];
-  
+  title: string;
+  link: string;
+  date: string;
+  image: string;
+}[];
 
 const getNewsItems = async () => {
-    let key = process.env.API_KEY;
-    let result:newsItems = [];
-    await Axios.get(`https://newsapi.org/v2/top-headlines?country=nl&apiKey=7e324e5ccca64871b482b29f4aec06e5`).then(response => {
-        result = response.data.articles;
-    })
+  let key = process.env.API_KEY;
+  let newsLinks = [
+    "https://www.newsserver.lucashopman.nl/nuarticles",
+    "https://www.newsserver.lucashopman.nl/telegraafarticles",
+    "https://www.newsserver.lucashopman.nl/adarticles",
+    "https://www.newsserver.lucashopman.nl/nosarticles",
+    "https://www.newsserver.lucashopman.nl/securityarticles",
+  ];
+  let result: newsItems = [];
 
-    return result;  
-}
+  await Promise.all(
+    newsLinks.map(async (link) => {
+      await Axios.get(link).then((response) => {
+        result = [...result, ...response.data];
+      });
+    })
+  );
+
+  // await Axios.get("https://www.newsserver.lucashopman.nl/nuarticles").then(
+  //   (response) => {
+  //     result = response.data;
+  //   }
+  // );
+
+  result.sort((a, b) => {
+    if (new Date(a.date).getTime() < new Date(b.date).getTime()) return 1;
+    return -1;
+  });
+
+  console.log(result);
+  return result;
+};
 
 export default getNewsItems;

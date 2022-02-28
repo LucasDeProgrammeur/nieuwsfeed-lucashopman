@@ -4,48 +4,70 @@ import Header from "./components/Header";
 import TimeDisplayer from "./components/TimeDisplayer";
 import NewsItem from "./components/NewsItem";
 import getNewsItems from "./helpers/getNewsItem";
+import UkraineHeading from "./components/UkraineHeading";
 
 type newsItems = {
-  source: {
-    id: any;
-    name: string;
-  };
   title: string;
-  description: string;
-  url: string;
-  urlToImage: string;
-  publishedAt: string;
-  content: string;
+  link: string;
+  date: string;
+  image: string;
 }[];
 
 function App() {
   const [news, setNews] = React.useState<newsItems>([]);
-
+  const [newsIndex, setNewsIndex] = React.useState(20);
+  let currentIndex = 20;
   React.useEffect(() => {
     const getNewsItemsToSet = async () => {
       setNews(await getNewsItems());
     };
     getNewsItemsToSet();
-    console.log(news);
   }, []);
+
+  const handleScroll = (e: any) => {
+    const bottom =
+      e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+
+    if (bottom) setNewsIndex(newsIndex + 20);
+  };
+
+  window.addEventListener("scroll", (e: any) => {
+    const bottom =
+      e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+
+    let height = window.innerHeight + window.scrollY;
+    if (height !== undefined && height > document.body.offsetHeight - 300) {
+      setNewsIndex(currentIndex + 5);
+      currentIndex = currentIndex + 5;
+    }
+  });
 
   return (
     <>
       <Header />
+      <UkraineHeading />
       <TimeDisplayer />
-      {console.log(news)}
-      {news.length > 0 &&
-        news.map((n) => {
-          return (
-            <NewsItem
-              title={n.title}
-              urlSource={n.url}
-              imgSource={n.urlToImage}
-              publishDate={n.publishedAt}
-              sourceName={n.source.name}
-            />
-          );
-        })}
+
+      <div style={{ overflowY: "hidden" }}>
+        {news.length > 0 ? (
+          news.map((n, i) => {
+            if (i < newsIndex)
+              return (
+                <NewsItem
+                  title={n.title}
+                  urlSource={n.link}
+                  imgSource={n.image}
+                  publishDate={n.date}
+                  sourceName={""}
+                />
+              );
+          })
+        ) : (
+          <div className="loadingBar">
+            <div className="throbber"></div>
+          </div>
+        )}
+      </div>
     </>
   );
 }

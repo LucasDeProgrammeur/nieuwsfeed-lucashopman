@@ -24,13 +24,22 @@ header h2 {
   padding-left: 10px;
 }
 
+.heading {
+  background-color: rgb(218, 218, 140);
+}
+
+.heading h4 {
+  margin: 0;
+  padding: 20px;
+}
+
 /** item classes **/
 .panel {
   display: inline-block;
   background-color: rgb(65, 71, 74);
   padding: 10px;
   border-radius: 10px;
-  margin: 30px;
+  margin: 30px 300px;
 }
 
 .timePanel {
@@ -44,11 +53,14 @@ header h2 {
   display: block;
   height: 70px;
 }
-.newsItem img {
+.articleImage {
   float: left;
-  width: 130px;
+  height: inherit;
   display: block;
   margin-right: 20px;
+  width: 150px;
+  object-fit: contain;
+  border: 0;
 }
 
 a {
@@ -58,6 +70,7 @@ a {
 .newsItem h3 {
   display: block;
   color: white;
+  font-size: 1.2em;
   text-decoration: none;
   padding-left: 20px;
   margin: 0 0 10px 5px;
@@ -72,5 +85,54 @@ a {
 
 .newsSource {
   float: left;
-  width: 28px !important;
+  height: 28px !important;
+}
+
+.loadingBar {
+  width: calc(100% - 100px);
+  margin: 50px;
+  height: 10px;
+  background-color: rgb(37, 33, 37);
+}
+
+.throbber {
+  background-color: white;
+  width: 20%;
+  height: 10px;
+  animation: throbber infinite 1.5s;
+}
+
+@keyframes throbber {
+  0% {
+    margin-left: 0px;
+  }
+  50% {
+    margin-left: 80%;
+  }
+  100% {
+    margin-left: 0px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  body {
+    font-size: 0.6em;
+  }
+
+  .newsItem {
+    height: 80px;
+    width: calc(100% - 30px);
+  }
+
+  .panel {
+    margin: 5px;
+  }
+
+  header h1 {
+    margin: 0;
+  }
+
+  .articleImage {
+    width: 75px;
+  }
 }

@@ -17,18 +17,37 @@ const NewsItem = ({
   publishDate,
   sourceName,
 }: Props) => {
-  let time =
-    publishDate.split("T")[0] + " " + publishDate.split("T")[1].substring(0, 5);
+  let time;
+  if (publishDate != undefined) {
+    try {
+      time = publishDate.includes("T")
+        ? publishDate.split("T")[0] +
+          " " +
+          publishDate.split("T")[1].substring(0, 5)
+        : publishDate;
+    } catch (exception) {}
+  }
+
   let image = "";
+  sourceName = urlSource
+    .replace("https://", "")
+    .replace("www.", "")
+    .split("/")[0];
+
   try {
     image = require("../img/" + sourceName + ".png");
-  } catch (exception) {}
+  } catch (exception) {
+    image = require("../img/newsfeed.png");
+  }
 
   return (
     <>
       <a href={urlSource} target="_blank">
         <div className="panel newsItem">
-          <img src={imgSource}></img>
+          <img
+            className={"articleImage"}
+            src={imgSource ? imgSource : require("../img/newsfeed.png")}
+          ></img>
           <h3>{title}</h3>
           <h4>{time}</h4>
           <img className="newsSource" src={image} width="24" />
