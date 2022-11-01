@@ -17,28 +17,43 @@ const NewsItem = ({
   publishDate,
   sourceName,
 }: Props) => {
-
   const formatTime = (publishDate: string) => {
     let date = new Date(publishDate);
     let dateString = "";
     let months = [
-      "Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli","Augustus", "September", "Oktober", "November", "December"
+      "Januari",
+      "Februari",
+      "Maart",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Augustus",
+      "September",
+      "Oktober",
+      "November",
+      "December",
     ];
 
     if (date.getDate() !== new Date().getDate()) {
-      dateString += date.getDate().toString() + " " + months[date.getUTCMonth()] + " " + date.getFullYear() + " ";
+      dateString +=
+        date.getDate().toString() +
+        " " +
+        months[date.getUTCMonth()] +
+        " " +
+        date.getFullYear() +
+        " ";
     }
 
-    dateString += ('0' + date.getHours()).slice(-2) + ":" + ('0' + date.getMinutes()).slice(-2);
-    
+    dateString +=
+      ("0" + date.getHours()).slice(-2) +
+      ":" +
+      ("0" + date.getMinutes()).slice(-2);
+
     return dateString;
-  }
+  };
 
   let time = formatTime(publishDate);
-  
-  
-  
-  
 
   // if (publishDate != undefined) {
   //   try {
@@ -71,8 +86,11 @@ const NewsItem = ({
             src={imgSource ? imgSource : require("../img/newsfeed.png")}
           ></img>
           <h3>{title}</h3>
-          <h4>{time}</h4>
-          <img className="newsSource" src={image} width="24" />
+
+          <div className="sourceContainer">
+            <h4>{time}</h4>
+            <img className="newsSource" src={image} width="24" />
+          </div>
         </div>
       </a>
     </>

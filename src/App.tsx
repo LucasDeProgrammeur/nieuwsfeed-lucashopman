@@ -48,7 +48,7 @@ function App() {
       <UkraineHeading />
       <TimeDisplayer />
 
-      <div style={{ overflowY: "hidden" }}>
+      <div className={"newsContainer"}>
         {news.length > 0 ? (
           news.map((n, i) => {
             if (i < newsIndex)

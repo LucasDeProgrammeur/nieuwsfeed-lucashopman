@@ -36,10 +36,9 @@ header h2 {
 /** item classes **/
 .panel {
   display: inline-block;
-  background-color: rgb(65, 71, 74);
+  background-color: rgb(65 71 87 /0.3);
   padding: 10px;
   border-radius: 10px;
-  margin: 30px 20%;
 }
 
 .timePanel {
@@ -49,18 +48,31 @@ header h2 {
   color: white;
 }
 
+.newsContainer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
 .newsItem {
+  position: relative;
   display: block;
-  min-height: 100px;
+  min-height: 350px;
+  width: calc(100vw /6);
+  border: 1.2px solid rgb(45, 51, 54);
+  box-shadow: 1px 1px 10px rgb(70 81 105 /0.15);
 }
 .articleImage {
   float: left;
   display: block;
   margin-right: 20px;
-  width: 130px;
-  height: 100px;
-  object-fit: scale-down;
-  border: 0;
+  width: inherit;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  padding: auto;
+  object-fit: cover;
+  min-height: 200px;
 }
 
 a {
@@ -70,10 +82,9 @@ a {
 .newsItem h3 {
   display: block;
   color: white;
-  font-size: 1.2em;
   text-decoration: none;
-  padding-left: 20px;
   margin: 0 0 10px 5px;
+  font-size: 0.85em;
 }
 
 .newsItem h4 {
@@ -89,6 +100,13 @@ a {
   height: 40px !important;
   width: 40px;
   object-fit: contain;
+}
+
+.sourceContainer {
+  position: absolute;
+  padding: 5px;
+  bottom: 0;
+  left: 0;
 }
 
 .settingsCog {
@@ -164,8 +182,17 @@ a {
   }
 
   .newsItem {
-    height: 80px;
-    width: calc(100% - 30px);
+    height: 20px;
+    width: calc(100vw /3);
+    min-height: 300px;
+  }
+
+  .newsContainer {
+    gap: 5px;
+  }
+
+  .newsItem h3 {
+    font-size: 1.3em;
   }
 
   .panel {
@@ -177,7 +204,7 @@ a {
   }
 
   .articleImage {
-    width: 75px;
+    min-height: 150px;
   }
 
   .settingsCog {
