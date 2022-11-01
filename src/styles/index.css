@@ -59,20 +59,18 @@ header h2 {
   position: relative;
   display: block;
   min-height: 350px;
-  width: calc(100vw /6);
+  width: calc(100vw /7);
   border: 1.2px solid rgb(45, 51, 54);
   box-shadow: 1px 1px 10px rgb(70 81 105 /0.15);
 }
 .articleImage {
-  float: left;
   display: block;
-  margin-right: 20px;
-  width: inherit;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  padding: auto;
   object-fit: cover;
-  min-height: 200px;
+  width: inherit;
+  /* width: 60%; */
+  border-radius: 15px;
+  margin: 10px auto;
+  height: 175px;
 }
 
 a {
@@ -84,7 +82,7 @@ a {
   color: white;
   text-decoration: none;
   margin: 0 0 10px 5px;
-  font-size: 0.85em;
+  font-size: 0.95em;
 }
 
 .newsItem h4 {
@@ -126,6 +124,7 @@ a {
   padding: 40px;
   border-radius: 5px;
   color: black;
+  z-index: 1;
 }
 
 .settingsMenu h3 {
@@ -176,7 +175,7 @@ a {
 }
 
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1024px) {
   body {
     font-size: 0.6em;
   }
@@ -192,7 +191,7 @@ a {
   }
 
   .newsItem h3 {
-    font-size: 1.3em;
+    font-size: 1.2em;
   }
 
   .panel {
@@ -204,7 +203,7 @@ a {
   }
 
   .articleImage {
-    min-height: 150px;
+    height: 150px;
   }
 
   .settingsCog {
