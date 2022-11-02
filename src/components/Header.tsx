@@ -1,15 +1,22 @@
 import * as React from "react";
 import { ReactComponent as SettingsCog } from '../img/settingscog.svg';
 import SettingsPage from "./SettingsPage";
+import TimeDisplayer from "./TimeDisplayer";
 
-const Header = () => {
-  const [isOpen, setIsOpen] = React.useState(false)
+type HeaderProps = {
+  isOpen: boolean;
+  setIsOpen: any;
+}
+
+const Header = ({
+  isOpen, setIsOpen
+}: HeaderProps) => {
   return (
     <header>
       <h1>Nieuwsfeed</h1>
-      <h2>Powered by lucashopman.nl</h2>
+      {/* <h2>Powered by lucashopman.nl</h2> */}
+      <TimeDisplayer />
       <SettingsCog className={"settingsCog"} onClick={() => setIsOpen(!isOpen)}/>
-      <SettingsPage opened={isOpen} setOpened={setIsOpen} />
     </header>
   );
 };

@@ -12,7 +12,7 @@ const TimeDisplayer = () => {
   }, []);
   return (
     <>
-      <div className={"timePanel panel"}>{time}</div>
+      <div className={"timePanel"}>{time}</div>
     </>
   );
 };

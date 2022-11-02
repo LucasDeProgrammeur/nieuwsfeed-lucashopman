@@ -8,15 +8,17 @@ type newsItems = {
   image: string;
 }[];
 
-const getNewsItems = async () => {
+const getNewsItems = async (newsSourcesToFetch: any) => {
   let key = process.env.API_KEY;
   let newsLinks = [
-    "https://www.newsserver.lucashopman.nl/nuarticles",
-    "https://www.newsserver.lucashopman.nl/telegraafarticles",
-    "https://www.newsserver.lucashopman.nl/adarticles",
-    "https://www.newsserver.lucashopman.nl/nosarticles",
-    "https://www.newsserver.lucashopman.nl/securityarticles",
   ];
+
+  for (const property in newsSourcesToFetch) {
+    if (newsSourcesToFetch[property] === true && property !== "false") {
+      newsLinks.push(`https://www.newsserver.lucashopman.nl/${property}articles`)
+    }
+  }
+
   let result: newsItems = [];
 
   await Promise.all(
@@ -26,12 +28,6 @@ const getNewsItems = async () => {
       });
     })
   );
-
-  // await Axios.get("https://www.newsserver.lucashopman.nl/nuarticles").then(
-  //   (response) => {
-  //     result = response.data;
-  //   }
-  // );
 
   result.sort((a, b) => {
     if (new Date(a.date).getTime() < new Date(b.date).getTime()) return 1;
