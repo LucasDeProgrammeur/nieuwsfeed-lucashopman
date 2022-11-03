@@ -112,13 +112,13 @@ a {
   display: inline-block;
   color: white;
   margin: 0;
-  padding-top: 9px;
+  padding-top: 8px;
   padding-left: 5px;
 }
 
 .newsSource {
   float: left;
-  height: 40px !important;
+  height: 40px;
   width: 40px;
   object-fit: contain;
 }
@@ -277,13 +277,17 @@ label {
   }
 
   .newsItem {
-    height: 20px;
+    height: 80px;
     width: calc(100vw /3);
     min-height: 300px;
   }
 
   .newsContainer {
     gap: 5px;
+  }
+
+  label {
+    line-height: 25px;
   }
 
   .newsItem h3 {
@@ -307,6 +311,62 @@ label {
     height: 30px;
     width: 30px;
     padding: 5px;
+  }
+
+  .settingsMenu {
+    width: 100vw;
+    left: 0;
+  }
+
+  /** Code for compact view **/
+  .compactView .articleImage {
+    height: 70px !important;
+    width: 70px !important;
+  }
+
+  .compactView .newsItem {
+    border-radius: 10px 10px 0 0;
+  }
+
+
+  .compactView .newsItem h3 {
+    display: -webkit-box;
+    max-width: 60%;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 15px;
+    float: left;
+    margin: 10px 10px;
+    font-size: 1.2em;
+  }
+
+  .compactView .newsSource {
+    width: 17px;
+    height: 17px;
+    float: left;
+  }
+
+  .compactView .sourceContainer {
+    width: calc(100% - 10px);
+    border-radius: 0 0 10px 10px;
+    height: 20px;
+  }
+
+  .compactView .sourceContainer h4 {
+    line-height: 2px !important;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    max-width: 60%;
+    font-size: 0.9em;
+    float: left;
+  }
+
+  .compactView {
+    gap: 1px;
+    position: relative;
   }
 
 }

@@ -6,63 +6,107 @@ interface SettingsPageProps {
   setOpened: any;
   newsSourcesToFetch: any;
   setNewsSourcesToFetch: any;
+  compactView: boolean;
+  setCompactView: any;
 }
 
 const SettingsPage: FunctionComponent<SettingsPageProps> = ({
   opened,
   setOpened,
   newsSourcesToFetch,
-  setNewsSourcesToFetch
+  setNewsSourcesToFetch,
+  compactView,
+  setCompactView,
 }) => {
   return opened ? (
     <>
       <div className="darkBackground"></div>
       <div className="settingsMenu">
-
         <section className="mainSettingsItems">
-          <h3>Instellingen</h3>
+          <h2>Instellingen</h2>
           <p>
-            <em>Nieuwsbronnen:</em>
+            <h3>Nieuwsbronnen</h3>
           </p>
           <Selectable
             checked={newsSourcesToFetch.NU}
-            setChecked={() => setNewsSourcesToFetch({ ...newsSourcesToFetch, NU:  !newsSourcesToFetch.NU})}
+            setChecked={() =>
+              setNewsSourcesToFetch({
+                ...newsSourcesToFetch,
+                NU: !newsSourcesToFetch.NU,
+              })
+            }
             title={"NU.nl"}
           />
           <Selectable
             checked={newsSourcesToFetch.AD}
-            setChecked={() => setNewsSourcesToFetch({ ...newsSourcesToFetch, AD: !newsSourcesToFetch.AD })}
+            setChecked={() =>
+              setNewsSourcesToFetch({
+                ...newsSourcesToFetch,
+                AD: !newsSourcesToFetch.AD,
+              })
+            }
             title={"AD.nl"}
           />
           <Selectable
             checked={newsSourcesToFetch.NOS}
-            setChecked={() => setNewsSourcesToFetch({ ...newsSourcesToFetch, NOS: !newsSourcesToFetch.NOS })}
+            setChecked={() =>
+              setNewsSourcesToFetch({
+                ...newsSourcesToFetch,
+                NOS: !newsSourcesToFetch.NOS,
+              })
+            }
             title={"NOS.nl"}
           />
           <Selectable
             checked={newsSourcesToFetch.Security}
-            setChecked={() => setNewsSourcesToFetch({ ...newsSourcesToFetch, Security: !newsSourcesToFetch.Security })}
+            setChecked={() =>
+              setNewsSourcesToFetch({
+                ...newsSourcesToFetch,
+                Security: !newsSourcesToFetch.Security,
+              })
+            }
             title={"Security.nl"}
           />
           <Selectable
             checked={newsSourcesToFetch.Telegraaf}
-            setChecked={() => setNewsSourcesToFetch({ ...newsSourcesToFetch, Telegraaf: !newsSourcesToFetch.Telegraaf })}
+            setChecked={() =>
+              setNewsSourcesToFetch({
+                ...newsSourcesToFetch,
+                Telegraaf: !newsSourcesToFetch.Telegraaf,
+              })
+            }
             title={"Telegraaf.nl"}
           />
           <Selectable
             checked={newsSourcesToFetch.Tweakers}
-            setChecked={() => setNewsSourcesToFetch({ ...newsSourcesToFetch, Tweakers: !newsSourcesToFetch.Tweakers })}
+            setChecked={() =>
+              setNewsSourcesToFetch({
+                ...newsSourcesToFetch,
+                Tweakers: !newsSourcesToFetch.Tweakers,
+              })
+            }
             title={"Tweakers.net"}
+          />
+          <h3>Compacte weergave</h3>
+          <Selectable
+            title={"Compacted view"}
+            checked={compactView}
+            setChecked={() => setCompactView(!compactView)}
           />
         </section>
 
         <section className="bottomPanel">
-          <button className="buttonLeft" onClick={() => setOpened(false)}>Sluiten</button>
+          <button className="buttonLeft" onClick={() => setOpened(false)}>
+            Sluiten
+          </button>
           <button
             className="buttonRight"
             onClick={() => {
-              
-              localStorage.setItem("newsSources", JSON.stringify(newsSourcesToFetch));
+              localStorage.setItem(
+                "newsSources",
+                JSON.stringify(newsSourcesToFetch)
+              );
+              localStorage.setItem("compactView", compactView ? "true" : "false");
               setOpened(false);
             }}
           >

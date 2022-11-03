@@ -1,7 +1,6 @@
 import React from "react";
 import Header from "./components/Header";
 import NewsItem from "./components/NewsItem";
-import Selectable from "./components/Selectable";
 import SettingsPage from "./components/SettingsPage";
 import WeatherDisplayer from "./components/WeatherDisplayer";
 import getNewsItems from "./helpers/getNewsItem";
@@ -27,13 +26,24 @@ function App() {
     Telegraaf: true,
   });
 
-
   React.useEffect(() => {
     const getNewsItemsToSet = async () => {
       setNews(await getNewsItems(newsSourcesToFetch));
     };
     getNewsItemsToSet();
   }, [settingsOpen, newsSourcesToFetch]);
+
+  React.useEffect(() => {
+    if (localStorage.getItem("newsSources")?.length) {
+      setNewsSourcesToFetch(
+        JSON.parse(localStorage.getItem("newsSources") || "{}")
+      );
+    }
+
+    if (localStorage.getItem("compactView")?.length) {
+      setCompactView(JSON.parse(localStorage.getItem("compactView") || "{}"));
+    }
+  }, []);
 
   const scrollAction = (e: any) => {
     let height = window.innerHeight + 0.0 + window.scrollY;
@@ -58,13 +68,11 @@ function App() {
         setOpened={setSettingsOpen}
         newsSourcesToFetch={newsSourcesToFetch}
         setNewsSourcesToFetch={setNewsSourcesToFetch}
+        compactView={compactView}
+        setCompactView={setCompactView}
       />
       <WeatherDisplayer />
-      <Selectable
-        title={"Compacted view"}
-        checked={compactView}
-        setChecked={() => setCompactView(!compactView)}
-      />
+
       <div
         className={compactView ? "newsContainer compactView" : "newsContainer"}
       >
