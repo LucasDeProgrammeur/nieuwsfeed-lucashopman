@@ -27,13 +27,6 @@ function App() {
   });
 
   React.useEffect(() => {
-    const getNewsItemsToSet = async () => {
-      setNews(await getNewsItems(newsSourcesToFetch));
-    };
-    getNewsItemsToSet();
-  }, [settingsOpen, newsSourcesToFetch]);
-
-  React.useEffect(() => {
     if (localStorage.getItem("newsSources")?.length) {
       setNewsSourcesToFetch(
         JSON.parse(localStorage.getItem("newsSources") || "{}")
@@ -44,6 +37,15 @@ function App() {
       setCompactView(JSON.parse(localStorage.getItem("compactView") || "{}"));
     }
   }, []);
+
+  React.useEffect(() => {
+    const getNewsItemsToSet = async () => {
+      setNews(await getNewsItems(newsSourcesToFetch));
+    };
+    getNewsItemsToSet();
+  }, [settingsOpen, newsSourcesToFetch]);
+
+
 
   const scrollAction = (e: any) => {
     let height = window.innerHeight + 0.0 + window.scrollY;
