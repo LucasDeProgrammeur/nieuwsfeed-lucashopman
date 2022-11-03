@@ -1,6 +1,4 @@
-import * as React from "react";
 import { ReactComponent as SettingsCog } from '../img/settingscog.svg';
-import SettingsPage from "./SettingsPage";
 import TimeDisplayer from "./TimeDisplayer";
 
 type HeaderProps = {

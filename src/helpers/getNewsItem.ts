@@ -1,5 +1,4 @@
 import Axios from "axios";
-import NewsItem from "../components/NewsItem";
 
 type newsItems = {
   title: string;
@@ -9,7 +8,6 @@ type newsItems = {
 }[];
 
 const getNewsItems = async (newsSourcesToFetch: any) => {
-  let key = process.env.API_KEY;
   let newsLinks = [
   ];
 
@@ -34,7 +32,6 @@ const getNewsItems = async (newsSourcesToFetch: any) => {
     return -1;
   });
 
-  console.log(result);
   return result;
 };
 

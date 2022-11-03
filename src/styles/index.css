@@ -76,6 +76,8 @@ header h2 {
   gap: 30px;
 }
 
+
+
 .newsItem {
   position: relative;
   display: block;
@@ -121,6 +123,10 @@ a {
   object-fit: contain;
 }
 
+label {
+  color: white;
+}
+
 .sourceContainer {
   position: absolute;
   padding: 5px;
@@ -131,6 +137,43 @@ a {
   border-top: 1.7px solid rgb(45, 51, 54);
   background-color: rgb(20 20 20 /0.3);
 }
+
+
+/** Compact view **/
+.compactView {
+  gap: 10px;
+}
+
+
+.compactView .newsItem {
+  width: calc(100vw - 60px);
+  min-height: 50px;
+  padding: 0;
+}
+
+.compactView .newsItem .articleImage {
+  float: left;
+  width: 40px;
+  height: 40px;
+  margin: 5px 10px;
+}
+
+.compactView .newsItem h3 {
+  display: inline-block;
+  line-height: 50px;
+  margin: 0 0 0px 20px;
+}
+
+.compactView .sourceContainer {
+  float: right;
+  width: 20%;
+  position: unset;
+  height: calc(50px - 1.6px - 10px);
+  border-radius: 0 10px 10px 0px;
+  border: 1.7px solid rgb(45, 51, 54);
+}
+
+
 
 
 /** Settings menu **/

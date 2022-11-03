@@ -1,7 +1,5 @@
-import * as React from "react";
 import { FunctionComponent } from "react";
 import Selectable from "./Selectable";
-import { useEffect } from "react";
 
 interface SettingsPageProps {
   opened: boolean;
@@ -10,44 +8,12 @@ interface SettingsPageProps {
   setNewsSourcesToFetch: any;
 }
 
-interface newsFilter {
-  NU: boolean;
-  Tweakers: boolean;
-  NOS: boolean;
-  AD: boolean;
-  Security: boolean;
-  Telegraaf: boolean;
-}
-
-type filterType = "NU" | "AD" | "NOS" | "Security" | "Telegraaf" | "Tweakers";
-
 const SettingsPage: FunctionComponent<SettingsPageProps> = ({
   opened,
   setOpened,
   newsSourcesToFetch,
   setNewsSourcesToFetch
 }) => {
-  // const [checkedNU, setCheckedNU] = React.useState(localStorageToBool("NU.nl"));
-  // const [checkedAD, setCheckedAD] = React.useState(localStorageToBool("AD.nl"));
-  // const [checkedTweakers, setCheckedTweakers] = React.useState(
-  //   localStorageToBool("Tweakers.net")
-  // );
-  // const [checkedNOS, setCheckedNOS] = React.useState(
-  //   localStorageToBool("NOS.nl")
-  // );
-  // const [CheckedSecurity, setCheckedSecurity] = React.useState(
-  //   localStorageToBool("Security.nl")
-  // );
-  // const [checkedTelegraaf, setCheckedTelegraaf] = React.useState(
-  //   localStorageToBool("Telegraaf.nl")
-  // );
-  const [tempSettings, setTempSettings] = React.useState()
-
-  useEffect(() => {
-
-  }, [])
-
-
   return opened ? (
     <>
       <div className="darkBackground"></div>
