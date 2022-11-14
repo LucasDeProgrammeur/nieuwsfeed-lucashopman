@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useEffect, useRef } from "react";
 import getNewsItems from "../helpers/getNewsItem";
 import getTime from "../helpers/getTime";
 
@@ -10,13 +10,14 @@ type Props = {
   sourceName: string;
 };
 
-const NewsItem = ({
+const NewsItem = React.forwardRef<HTMLElement, Props>(({
   title,
   urlSource,
   imgSource,
   publishDate,
   sourceName,
-}: Props) => {
+}: Props, ref) => {
+
   const formatTime = (publishDate: string) => {
     let date = new Date(publishDate);
     let dateString = "";
@@ -79,7 +80,7 @@ const NewsItem = ({
 
   return (
     <>
-      <a href={urlSource} target="_blank">
+      <a href={urlSource} target="_blank"  ref={ref}>
         <div className="panel newsItem">
           <img
             className={"articleImage"}
@@ -95,6 +96,6 @@ const NewsItem = ({
       </a>
     </>
   );
-};
+});
 
 export default NewsItem;
