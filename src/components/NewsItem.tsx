@@ -10,14 +10,13 @@ type Props = {
   sourceName: string;
 };
 
-const NewsItem = React.forwardRef<HTMLElement, Props>(({
+const NewsItem = ({
   title,
   urlSource,
   imgSource,
   publishDate,
   sourceName,
-}: Props, ref) => {
-
+}: Props) => {
   const formatTime = (publishDate: string) => {
     let date = new Date(publishDate);
     let dateString = "";
@@ -80,7 +79,7 @@ const NewsItem = React.forwardRef<HTMLElement, Props>(({
 
   return (
     <>
-      <a href={urlSource} target="_blank"  ref={ref}>
+      <a href={urlSource} target="_blank" rel="noreferrer">
         <div className="panel newsItem">
           <img
             className={"articleImage"}
@@ -96,6 +95,6 @@ const NewsItem = React.forwardRef<HTMLElement, Props>(({
       </a>
     </>
   );
-});
+};
 
 export default NewsItem;

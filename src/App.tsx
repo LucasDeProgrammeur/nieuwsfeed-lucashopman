@@ -17,7 +17,7 @@ function App() {
   const [settingsOpen, setSettingsOpen] = React.useState(false);
   const [compactView, setCompactView] = React.useState(false);
   const [currentIndex, setCurrentIndex] = React.useState(30);
-  const containerRef = useRef<HTMLElement>(null);
+  const containerRef = React.createRef<HTMLDivElement>();
   const [newsSourcesToFetch, setNewsSourcesToFetch] = React.useState({
     NU: true,
     Tweakers: true,
@@ -37,8 +37,6 @@ function App() {
     if (localStorage.getItem("compactView")?.length) {
       setCompactView(JSON.parse(localStorage.getItem("compactView") || "{}"));
     }
-
-
   }, []);
 
   React.useEffect(() => {
@@ -48,40 +46,20 @@ function App() {
     getNewsItemsToSet();
   }, [settingsOpen, newsSourcesToFetch]);
 
-  
   useEffect(() => {
     let observer = new IntersectionObserver((entries) => {
-      console.log("start observing...")
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          console.log("Intersecting...")
           setCurrentIndex(currentIndex + 30);
         }
-      })
-    }, {root: document.body, rootMargin: '200px', threshold: 0.001})
+      });
+    }, {});
 
     if (containerRef.current) observer.observe(containerRef.current!);
     return () => {
-      if (containerRef.current) observer.unobserve(containerRef.current)
-    }
-  }, [containerRef])
-
-  // const scrollAction = (e: any) => {
-  //   let height = window.innerHeight + 0.0 + window.scrollY;
-  //   console.log("Height: " + height);
-  //   console.log("Offset height: " + (document.body.offsetHeight - 700));
-  //   if (height !== undefined && height > document.body.offsetHeight - 700) {
-  //     if (currentIndex + 5 > news.length) {
-  //       setCurrentIndex(news.length);
-  //     }
-  //     setCurrentIndex(currentIndex + 30);
-  //     window.removeEventListener("scroll", scrollAction);
-  //   }
-  // };
-  React.useEffect(() => {
-    // window.addEventListener("scroll", scrollAction);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentIndex]);
+      if (containerRef.current) observer.unobserve(containerRef.current);
+    };
+  }, [containerRef, currentIndex]);
 
   return (
     <>
@@ -102,17 +80,21 @@ function App() {
         {news.length > 0 ? (
           news.map((n, i) => {
             if (i < currentIndex) {
-              const lastElement = i === currentIndex - 1;
+              const lastElement = i === currentIndex - 10;
               return (
-                <NewsItem
-                  title={n.title}
-                  urlSource={n.link}
-                  imgSource={n.image}
-                  publishDate={n.date}
-                  sourceName={""}
-                  key={i}
+                <div
+                  className={lastElement ? "last-child" : ""}
                   ref={lastElement ? containerRef : null}
-                />
+                >
+                  <NewsItem
+                    title={n.title}
+                    urlSource={n.link}
+                    imgSource={n.image}
+                    publishDate={n.date}
+                    sourceName={""}
+                    key={i}
+                  />
+                </div>
               );
             }
             return <></>;
