@@ -1,0 +1,40 @@
+header {
+    height: 50px;
+    width: calc(100% - 40px);
+    padding: 0 20px;
+}
+
+header p {
+    line-height: 10px;
+}
+
+header h1 {
+    position: absolute;
+    text-align: center;
+    font-family: "Bevan";
+    width: 100vw;
+    top: 0;
+    left: 0;
+    margin: 0;
+}
+
+.weatherPanel, .timePanel {
+    float: left;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    height: 50px;
+    margin: 0 20px;
+}
+
+
+
+
+
+.weatherType {
+    font-family: "meteocons";
+}
+
+.settingsCog {
+    float: right;
+}

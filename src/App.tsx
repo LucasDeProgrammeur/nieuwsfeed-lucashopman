@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import Header from "./components/Header";
 import NewsItem from "./components/NewsItem";
 import SettingsPage from "./components/SettingsPage";
-import WeatherDisplayer from "./components/WeatherDisplayer";
 import getNewsItems from "./helpers/getNewsItem";
 
 type newsItems = {
@@ -72,7 +71,7 @@ function App() {
         compactView={compactView}
         setCompactView={setCompactView}
       />
-      <WeatherDisplayer />
+      
 
       <div
         className={compactView ? "newsContainer compactView" : "newsContainer"}

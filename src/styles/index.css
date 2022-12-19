@@ -1,65 +1,18 @@
+@font-face {
+  font-family: "meteocons";
+  src: url("../fonts/meteocons-webfont.ttf");
+}
+
 body {
+  color: white;
   margin: 0;
+  top: 0;
   font-family: "Heebo";
   background-color: rgb(15, 16, 17);
   user-select: none;
+  box-shadow: inset 0 40px 25px -7px rgba(0 36 52/0.4)
 }
 
-header {
-  margin: 0;
-  background: none;
-  color: white;
-  height: fit-content;
-  margin: 0 0 30px 0;
-}
-
-.settingsCog {
-  float: right;
-  height: 32px;
-  width: 32px;
-  padding: 10px;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-header h1 {
-  text-align: center;
-  margin: 5px;
-  font-family: 'Bevan';
-  font-size: 25px;
-}
-
-header h2 {
-  font-size: 0.9em;
-  display: inline-block;
-  padding-left: 10px;
-}
-.timePanel, .weatherPanel {
-  position: absolute;
-  left: 0;
-  top: 0;
-  padding: 11px;
-  width: fit-content;
-  height: fit-content;
-  font-size: 0.9em;
-  color: white;
-}
-
-.weatherPanel {
-  left: 50px;
-}
-
-
-
-.heading {
-  background-color: rgb(218, 218, 140);
-}
-
-.heading h4 {
-  margin: 0;
-  padding: 20px;
-}
 
 /** item classes **/
 .panel {
