@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import Header from "./components/Header";
 import NewsItem from "./components/NewsItem";
+import PlaceholderNewsItemView from "./components/PlaceHolderNewsItemsView";
 import SettingsPage from "./components/SettingsPage";
 import getNewsItems from "./helpers/getNewsItem";
 
@@ -99,9 +100,7 @@ function App() {
             return <></>;
           })
         ) : (
-          <div className="loadingBar">
-            <div className="throbber"></div>
-          </div>
+          <PlaceholderNewsItemView />
         )}
       </div>
     </>

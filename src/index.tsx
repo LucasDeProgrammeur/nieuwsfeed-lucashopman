@@ -3,7 +3,9 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import "./styles/index.css";
 import "./styles/Header.css"
+import "./styles/Hamburger.css";
 import "./styles/CustomCheckbox.css";
+import "./styles/Navigation.css";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(

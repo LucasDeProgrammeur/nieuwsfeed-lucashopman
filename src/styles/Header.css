@@ -2,13 +2,17 @@ header {
     height: 50px;
     width: calc(100% - 40px);
     padding: 0 20px;
+    margin-bottom: 20px;
 }
 
 header p {
-    line-height: 10px;
+    display: table-cell;
+    padding: 0 5px;
+    vertical-align: middle;
 }
 
 header h1 {
+    pointer-events: none;
     position: absolute;
     text-align: center;
     font-family: "Bevan";
@@ -20,15 +24,12 @@ header h1 {
 
 .weatherPanel, .timePanel {
     float: left;
-    display: flex;
-    gap: 10px;
+    display: table;
+    gap: 5px;
     justify-content: center;
     height: 50px;
-    margin: 0 20px;
+    margin: 0 5px;
 }
-
-
-
 
 
 .weatherType {
@@ -37,4 +38,14 @@ header h1 {
 
 .settingsCog {
     float: right;
+    height: 32px;
+    width: 32px;
+    padding: 7.5px;
+    margin-right: 30px;
+}
+
+@media screen and (max-width: 1024px) {
+    header h1 {
+        margin-top: 10px;
+      }
 }

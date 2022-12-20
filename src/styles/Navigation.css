@@ -1,0 +1,49 @@
+nav {
+    position: fixed;
+    background-color: rgb(28 31 36);
+    right: 0;
+    top: 0;
+    padding-top: 40px;
+    z-index: 2;
+    height: 100%;
+    box-shadow: 1px 1px 10px rgb(70 81 105 /0.15);
+    overflow: hidden;
+    display: none;
+    text-overflow: unset;
+}
+
+.navOpen {
+    display: block;
+}
+
+nav ul {
+    list-style-type: none;
+    padding-left: 0;
+    width: 300px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+nav ul li {
+    padding:15px;
+    transition:all .3s;
+}
+
+nav ul a {
+    color: white;
+    text-decoration: none;
+}
+
+nav ul li:hover {
+    background: linear-gradient(90deg, rgb(43, 51, 54), rgb(60 70 96 /0.30));
+}
+
+@media screen and (max-width: 1200px) {
+    nav ul {
+        font-size: 1.6em;
+    }
+
+    nav ul {
+        width: 100vw;
+    }
+  }

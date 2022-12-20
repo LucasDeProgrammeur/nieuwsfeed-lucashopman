@@ -76,6 +76,46 @@ a {
   object-fit: contain;
 }
 
+@keyframes gradient {
+  0% {
+    opacity: 0.1;
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+    opacity: 2;
+  }
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+.loadGradient {
+
+  background: linear-gradient(90deg, rgb(60 70 82 /0.30), rgb(70 69 80 /0.5), rgb(60 70 82 /0.30)) 400% 400%;
+  background-size: 200% 200%;
+  animation: gradient 0.5s ease-in-out infinite, opacity 0.3s ease-in-out forwards;
+}
+
+
+.shadowHolder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;;
+  overflow: hidden;
+  box-shadow: inset 0px -400px 200px rgb(18 20 25/0.95);
+  z-index: 1;
+}
+
 label {
   color: white;
 }
@@ -249,10 +289,6 @@ label {
 
   .panel {
     margin: 5px;
-  }
-
-  header h1 {
-    margin: 0;
   }
 
   .articleImage {

@@ -1,4 +1,5 @@
 import { ReactComponent as SettingsCog } from '../img/settingscog.svg';
+import Hamburger from './Hamburger';
 import TimeDisplayer from "./TimeDisplayer";
 import WeatherDisplayer from './WeatherDisplayer';
 
@@ -17,6 +18,7 @@ const Header = ({
       <TimeDisplayer />
       <WeatherDisplayer />
       <h1>Nieuwsfeed</h1>
+      <Hamburger />
       <SettingsCog className={"settingsCog"} onClick={() => setIsOpen(!isOpen)}/>
     </header>
   );
