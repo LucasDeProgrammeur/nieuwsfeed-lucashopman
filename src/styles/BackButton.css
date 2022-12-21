@@ -1,0 +1,40 @@
+.backButton {
+    float: left;
+    width: 30px;
+    padding: 2px;
+    height: 50px;
+    z-index: 4;
+    position: absolute;
+    left: 20px;
+    top: 0;
+    transition: position .4s;
+}
+
+.backButton span {
+    display: block;
+    width: 100%;
+    height: 5px;
+    background-color: white;
+    position: relative;
+    transition: transform .4s ease-out, top .4s ease-out;
+    border-radius: 30px;
+}
+
+.backButton span:nth-child(1) {
+    top: 20px;
+    left: 2px;
+}
+
+.backButton span:nth-child(2) {
+    top: 20px;
+    transform: rotate(35deg);
+    width: 20px;
+
+}
+
+.backButton span:nth-child(3) {
+    top: 5px;
+    left: 0px;  
+    width: 20px;
+    transform: rotate(140deg);
+}

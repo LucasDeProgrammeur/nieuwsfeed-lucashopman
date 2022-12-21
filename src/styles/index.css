@@ -106,14 +106,15 @@ a {
 
 
 .shadowHolder {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;;
   overflow: hidden;
   box-shadow: inset 0px -400px 200px rgb(18 20 25/0.95);
-  z-index: 1;
+  z-index: 4;
+  pointer-events: none;
 }
 
 label {
@@ -171,15 +172,15 @@ label {
 
 /** Settings menu **/
 .settingsMenu {
-  position: relative;
+  position: fixed;
   background-color: rgb(32 35 42);
   color: white;
-  height: 40%;
   width: 40%;
   left: 30%;
   top: 80px;
   border-radius: 15px 15px 0 0;
-  z-index: 2;
+  z-index: 5;
+  box-shadow: 1px 1px 10px rgb(20 29 42 /0.9);
 }
 
 .mainSettingsItems {
@@ -228,7 +229,7 @@ label {
   background-color: black;
   opacity: 0.7;
   backdrop-filter: blur(10px);
-  z-index: 1;
+  z-index: 4;
 }
 
 .loadingBar {
