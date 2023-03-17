@@ -7,6 +7,7 @@ import "./styles/Hamburger.css";
 import "./styles/CustomCheckbox.css";
 import "./styles/Navigation.css";
 import "./styles/BackButton.css";
+import "./styles/PeaceMode.css";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(

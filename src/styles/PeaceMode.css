@@ -1,0 +1,22 @@
+.peaceMode {
+    position: sticky;
+    left: 0;
+    top: 0;
+    background-color: rgb(15, 16, 17);
+    text-align: center;
+    background: linear-gradient(rgb(15, 16, 17) 30%, rgb(30 31 32/0.4));
+    min-height: calc(100vh - 70px);
+}
+
+
+.peaceModeWeather {
+    padding-top: 16vh;
+    text-align: center;
+    font-family: 'meteocons';
+    font-size: 4em;
+    margin: 0;
+}
+
+.peaceMode h4 {
+    text-decoration: underline;
+}

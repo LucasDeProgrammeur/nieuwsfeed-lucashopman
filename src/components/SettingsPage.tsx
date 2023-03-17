@@ -8,6 +8,8 @@ interface SettingsPageProps {
   setNewsSourcesToFetch: any;
   compactView: boolean;
   setCompactView: any;
+  setPeaceMode: React.Dispatch<React.SetStateAction<boolean>>;
+  peaceMode: boolean;
 }
 
 const SettingsPage: FunctionComponent<SettingsPageProps> = ({
@@ -17,6 +19,8 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
   setNewsSourcesToFetch,
   compactView,
   setCompactView,
+  setPeaceMode,
+  peaceMode,
 }) => {
   return opened ? (
     <>
@@ -93,8 +97,15 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
             checked={compactView}
             setChecked={() => setCompactView(!compactView)}
           />
+          <h3>Overige instellingen</h3>
+        <p>Peaceful mode</p>
+        <Selectable
+          title={"Geen nieuwsartikelen. Voel je weer zen!"}
+          setChecked={() => setPeaceMode(!peaceMode)}
+          checked={peaceMode}
+        />
         </section>
-
+        
         <section className="bottomPanel">
           <button className="buttonLeft" onClick={() => setOpened(false)}>
             Sluiten
@@ -106,7 +117,10 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
                 "newsSources",
                 JSON.stringify(newsSourcesToFetch)
               );
-              localStorage.setItem("compactView", compactView ? "true" : "false");
+              localStorage.setItem(
+                "compactView",
+                compactView ? "true" : "false"
+              );
               setOpened(false);
             }}
           >

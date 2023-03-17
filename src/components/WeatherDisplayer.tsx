@@ -124,13 +124,19 @@ const WeatherDisplayer = () => {
       condition: "snowGrains",
       conditionDutch: "Sneeuwstukjes",
     },
+    {
+      code: 80,
+      letter: "Q",
+      condition: "rainShowerLight",
+      conditionDutch: "Lichte regenbui"
+    }
   ];
 
   useEffect(() => {
     const fetchData = async () => {
       let weather = await getWeather();
-      setTemp(weather.temperature);
-      setCurrentWeatherCode(weather.weathercode);
+      setTemp(weather.current_weather.temperature);
+      setCurrentWeatherCode(weather.current_weather.weathercode);
       setWeather(weather);
     };
     fetchData();

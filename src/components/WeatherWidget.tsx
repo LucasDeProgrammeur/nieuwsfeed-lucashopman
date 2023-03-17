@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { WeatherCode } from "../types/types";
 import BackButton from "./BackButton";
+import { WeatherLineChart } from "./WeatherLineChart";
 
 interface Props {
   weather: any;
@@ -14,21 +15,22 @@ const WeatherWidget = ({ weather, weatherCodes, setWidgetEnabled }: Props) => {
   useEffect(() => {
     setWeatherCodeEntry(
       weatherCodes[
-        weatherCodes.findIndex((e) => e.code === weather.weathercode)
+        weatherCodes.findIndex((e) => e.code === weather.current_weather.weathercode)
       ]
     );
   }, [weather, weatherCodes]);
   return weatherCodeEntry ? (
     <div className={"weatherWidget " + weatherCodeEntry.condition}>
       <section className="topWeatherInfo">
-        <h3>{weather.temperature}</h3>
+        <h3>{weather.current_weather.temperature}</h3>
         <p className="tempIndicator"> °C</p>
         <p className="conditionIcon">{weatherCodeEntry.letter}</p>
       </section>
+      <WeatherLineChart hourlyRain={weather.hourly.rain} hours={weather.hourly.time}/>
       <section className="bottomWeatherInfo">
         <p>De Bilt</p>
         <p>{weatherCodeEntry.conditionDutch}</p>
-        <p>Windsnelheid: {weather.windspeed} km/h</p>
+        <p>Windsnelheid: {weather.current_weather.windspeed} km/h</p>
       </section>
     </div>
   ) : (

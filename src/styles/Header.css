@@ -81,8 +81,13 @@ header h1 {
 }
 
 .weatherWidget {
-    transition: background-color 0.2s, color 0.2s;
+    display: flex;
+    flex-direction: column;
     position: absolute;
+    justify-content: space-evenly;
+    transition: background-color 0.2s, color 0.2s;
+    z-index: 7;
+    height: 400px;
     top: calc(50px - 15px);
     left: 0;
     width: 200px;
@@ -94,6 +99,18 @@ header h1 {
     z-index: 1;
     box-shadow: 0px 20px 30px rgba(0 0 0/.5);
     transition: background-color 1s;
+    animation: weatherWidgetAppear 0.15s  ease-out;
+}
+
+@keyframes weatherWidgetAppear {
+    0% {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 
@@ -107,7 +124,11 @@ header h1 {
 
 .topWeatherInfo {
     display: flex;
-    height: 100px;
+}
+
+.bottomWeatherInfo {
+    display: inline-block;
+    min-height: 40px;
 }
 
 .tempIndicator {
@@ -119,7 +140,9 @@ header h1 {
 .conditionIcon {
     font-family: 'meteocons';
     font-size: 3em;
-    margin: 0px 10px 30px 10px;
+    margin: 0px 10px 10px 10px;
+    flex: 1;
+    text-align: right;
 }
 
 
@@ -145,7 +168,6 @@ header h1 {
       }
 
       .topWeatherInfo {
-        padding-top: 100px;
         height: 60%;
       }
 
@@ -158,7 +180,7 @@ header h1 {
 
 /** All weather settings **/
 
-.drizzleLight, .rainLight, .freezingRainLight {
+.drizzleLight, .rainLight, .rainShowerLight, .freezingRainLight {
     background: linear-gradient(rgb(95, 96, 98), rgb(78, 78, 79), rgb(72, 72, 76));
     color: rgb(223, 220, 207);
 }

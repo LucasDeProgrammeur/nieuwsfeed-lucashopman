@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import Header from "./components/Header";
 import NewsItem from "./components/NewsItem";
+import PeaceMode from "./components/Peacemode";
 import PlaceholderNewsItemView from "./components/PlaceHolderNewsItemsView";
 import SettingsPage from "./components/SettingsPage";
 import getNewsItems from "./helpers/getNewsItem";
@@ -17,6 +18,7 @@ function App() {
   const [settingsOpen, setSettingsOpen] = React.useState(false);
   const [compactView, setCompactView] = React.useState(false);
   const [currentIndex, setCurrentIndex] = React.useState(30);
+  const [peaceMode, setPeaceMode] = React.useState(false);
   const containerRef = React.createRef<HTMLDivElement>();
   const [newsSourcesToFetch, setNewsSourcesToFetch] = React.useState({
     NU: true,
@@ -71,10 +73,12 @@ function App() {
         setNewsSourcesToFetch={setNewsSourcesToFetch}
         compactView={compactView}
         setCompactView={setCompactView}
+        peaceMode={peaceMode}
+        setPeaceMode={setPeaceMode}
       />
+      {peaceMode && <PeaceMode setPeaceMode={setPeaceMode} />}
       
-
-      <div
+      {!peaceMode && <div
         className={compactView ? "newsContainer compactView" : "newsContainer"}
       >
         {news.length > 0 ? (
@@ -102,7 +106,7 @@ function App() {
         ) : (
           <PlaceholderNewsItemView />
         )}
-      </div>
+      </div>}
     </>
   );
 }
