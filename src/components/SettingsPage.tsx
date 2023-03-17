@@ -1,5 +1,7 @@
 import { FunctionComponent } from "react";
+import { sourceCategory, sourceToggle } from "../types/types";
 import Selectable from "./Selectable";
+import sources from "../sources.json";
 
 interface SettingsPageProps {
   opened: boolean;
@@ -31,66 +33,28 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
           <p>
             <h3>Nieuwsbronnen</h3>
           </p>
-          <Selectable
-            checked={newsSourcesToFetch.NU}
-            setChecked={() =>
-              setNewsSourcesToFetch({
-                ...newsSourcesToFetch,
-                NU: !newsSourcesToFetch.NU,
-              })
-            }
-            title={"NU.nl"}
-          />
-          <Selectable
-            checked={newsSourcesToFetch.AD}
-            setChecked={() =>
-              setNewsSourcesToFetch({
-                ...newsSourcesToFetch,
-                AD: !newsSourcesToFetch.AD,
-              })
-            }
-            title={"AD.nl"}
-          />
-          <Selectable
-            checked={newsSourcesToFetch.NOS}
-            setChecked={() =>
-              setNewsSourcesToFetch({
-                ...newsSourcesToFetch,
-                NOS: !newsSourcesToFetch.NOS,
-              })
-            }
-            title={"NOS.nl"}
-          />
-          <Selectable
-            checked={newsSourcesToFetch.Security}
-            setChecked={() =>
-              setNewsSourcesToFetch({
-                ...newsSourcesToFetch,
-                Security: !newsSourcesToFetch.Security,
-              })
-            }
-            title={"Security.nl"}
-          />
-          <Selectable
-            checked={newsSourcesToFetch.Telegraaf}
-            setChecked={() =>
-              setNewsSourcesToFetch({
-                ...newsSourcesToFetch,
-                Telegraaf: !newsSourcesToFetch.Telegraaf,
-              })
-            }
-            title={"Telegraaf.nl"}
-          />
-          <Selectable
-            checked={newsSourcesToFetch.Tweakers}
-            setChecked={() =>
-              setNewsSourcesToFetch({
-                ...newsSourcesToFetch,
-                Tweakers: !newsSourcesToFetch.Tweakers,
-              })
-            }
-            title={"Tweakers.net"}
-          />
+          {
+           
+            JSON.parse(JSON.stringify(sources)).map((x: sourceCategory, i: Number) => {
+
+                return (<><h4>{x.category}</h4>{
+                  x.sources.map((source: string) => {
+                    return <Selectable
+                      checked={newsSourcesToFetch.find((x: sourceToggle) => x.source === source).enabled}
+                      setChecked={() => {
+                       const newArray = newsSourcesToFetch.map((x: sourceToggle) => 
+                        x.source === source ? {...x, enabled: !x.enabled} : x
+                       )
+                      setNewsSourcesToFetch(newArray);
+                      }}
+                      title={source}
+                    />
+          
+                })
+                }</>)
+                
+            })
+          }
           <h3>Compacte weergave</h3>
           <Selectable
             title={"Compacted view"}
@@ -135,3 +99,65 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
 };
 
 export default SettingsPage;
+
+
+{/* <Selectable
+checked={newsSourcesToFetch.NU}
+setChecked={() =>
+  setNewsSourcesToFetch({
+    ...newsSourcesToFetch,
+    NU: !newsSourcesToFetch.NU,
+  })
+}
+title={"NU.nl"}
+/>
+<Selectable
+checked={newsSourcesToFetch.AD}
+setChecked={() =>
+  setNewsSourcesToFetch({
+    ...newsSourcesToFetch,
+    AD: !newsSourcesToFetch.AD,
+  })
+}
+title={"AD.nl"}
+/>
+<Selectable
+checked={newsSourcesToFetch.NOS}
+setChecked={() =>
+  setNewsSourcesToFetch({
+    ...newsSourcesToFetch,
+    NOS: !newsSourcesToFetch.NOS,
+  })
+}
+title={"NOS.nl"}
+/>
+<Selectable
+checked={newsSourcesToFetch.Security}
+setChecked={() =>
+  setNewsSourcesToFetch({
+    ...newsSourcesToFetch,
+    Security: !newsSourcesToFetch.Security,
+  })
+}
+title={"Security.nl"}
+/>
+<Selectable
+checked={newsSourcesToFetch.Telegraaf}
+setChecked={() =>
+  setNewsSourcesToFetch({
+    ...newsSourcesToFetch,
+    Telegraaf: !newsSourcesToFetch.Telegraaf,
+  })
+}
+title={"Telegraaf.nl"}
+/>
+<Selectable
+checked={newsSourcesToFetch.Tweakers}
+setChecked={() =>
+  setNewsSourcesToFetch({
+    ...newsSourcesToFetch,
+    Tweakers: !newsSourcesToFetch.Tweakers,
+  })
+}
+title={"Tweakers.net"}
+/> */}

@@ -7,3 +7,12 @@ export interface WeatherCode {
 export interface PlaceholderType {
     
 }
+export interface sourceCategory {
+    category: string;
+    sources: Array<string>
+}
+
+export interface sourceToggle {
+    source: string,
+    enabled: boolean
+}

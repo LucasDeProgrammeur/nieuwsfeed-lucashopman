@@ -5,6 +5,8 @@ import PeaceMode from "./components/Peacemode";
 import PlaceholderNewsItemView from "./components/PlaceHolderNewsItemsView";
 import SettingsPage from "./components/SettingsPage";
 import getNewsItems from "./helpers/getNewsItem";
+import sources from "./sources.json";
+import { sourceCategory, sourceToggle } from "./types/types";
 
 type newsItems = {
   title: string;
@@ -20,13 +22,16 @@ function App() {
   const [currentIndex, setCurrentIndex] = React.useState(30);
   const [peaceMode, setPeaceMode] = React.useState(false);
   const containerRef = React.createRef<HTMLDivElement>();
-  const [newsSourcesToFetch, setNewsSourcesToFetch] = React.useState({
-    NU: true,
-    Tweakers: true,
-    NOS: true,
-    AD: true,
-    Security: true,
-    Telegraaf: true,
+  const [newsSourcesToFetch, setNewsSourcesToFetch] = React.useState(() => {
+    let newsCategories: Array<sourceCategory> = JSON.parse(JSON.stringify(sources));
+    let arrayGenerated: Array<sourceToggle> = [];
+    newsCategories.forEach((x: sourceCategory) => {
+      x.sources.forEach((x: string) => {
+        let toggleProperty = {source: x, enabled: false}
+        arrayGenerated = [...arrayGenerated, toggleProperty];
+      })
+    });
+    return arrayGenerated;
   });
 
   React.useEffect(() => {
@@ -47,6 +52,7 @@ function App() {
     };
     getNewsItemsToSet();
   }, [settingsOpen, newsSourcesToFetch]);
+  
 
   useEffect(() => {
     let observer = new IntersectionObserver((entries) => {
