@@ -5,18 +5,20 @@ interface SelectableProps {
   checked: any;
   setChecked: any;
   title: any;
+  useBigFont?: boolean;
 }
 
 const Selectable: FunctionComponent<SelectableProps> = ({
   checked,
   setChecked,
   title,
+  useBigFont = false,
 }) => {
   const [localChecked, setLocalChecked] = React.useState(checked);
 
   React.useEffect(() => {
     setLocalChecked(checked);
-  }, [checked])
+  }, [checked]);
   return (
     <div className="fullWidth slightMargin">
       <label className="switch round">
@@ -27,12 +29,21 @@ const Selectable: FunctionComponent<SelectableProps> = ({
         />
         <span className="slider round"></span>
       </label>
-      <label
-        className="selectableLabel unselectable clickable"
-        onClick={() => setChecked()}
-      >
-        {title}
-      </label>
+      {useBigFont ? (
+        <label
+          className="selectableLabel unselectable clickable biggerFont"
+          onClick={() => setChecked()}
+        >
+          {title}
+        </label>
+      ) : (
+        <label
+          className="selectableLabel unselectable clickable"
+          onClick={() => setChecked()}
+        >
+          {title}
+        </label>
+      )}
     </div>
   );
 };

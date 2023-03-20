@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { sourceCategory, sourceToggle } from "../types/types";
+import { sourceArray, sourceCategory, sourceToggle } from "../types/types";
 import Selectable from "./Selectable";
 import sources from "../sources.json";
 
@@ -24,6 +24,7 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
   setPeaceMode,
   peaceMode,
 }) => {
+  let srces = JSON.parse(JSON.stringify(sources));
   return opened ? (
     <>
       <div className="darkBackground"></div>
@@ -33,28 +34,61 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
           <p>
             <h3>Nieuwsbronnen</h3>
           </p>
-          {
-           
-            JSON.parse(JSON.stringify(sources)).map((x: sourceCategory, i: Number) => {
-
-                return (<><h4>{x.category}</h4>{
-                  x.sources.map((source: string) => {
-                    return <Selectable
-                      checked={newsSourcesToFetch.find((x: sourceToggle) => x.source === source).enabled}
+          {newsSourcesToFetch.map((x: sourceToggle, i: Number) => {
+            return (
+              <>
+                <Selectable
+                  checked={x.enabled}
+                  setChecked={() => {
+                    let newToggleArray = newsSourcesToFetch.map(
+                      (categoryProps: sourceToggle) =>
+                        categoryProps.category === x.category
+                          ? {
+                              ...categoryProps,
+                              enabled: !categoryProps.enabled,
+                              sources: x.sources.map((categoryToDisable) => ({
+                                ...categoryToDisable,
+                                enabled: !categoryProps.enabled,
+                              })),
+                            }
+                          : { ...categoryProps }
+                    );
+                    setNewsSourcesToFetch(newToggleArray);
+                  }}
+                  title={x.category}
+                  useBigFont={true}
+                />
+                {x.sources.map((sourceToggle: sourceArray) => {
+                  return (
+                    <Selectable
+                      checked={sourceToggle.enabled}
                       setChecked={() => {
-                       const newArray = newsSourcesToFetch.map((x: sourceToggle) => 
-                        x.source === source ? {...x, enabled: !x.enabled} : x
-                       )
-                      setNewsSourcesToFetch(newArray);
+                        const newArray = newsSourcesToFetch.map(
+                          (x: sourceToggle) =>
+                            x.sources.find(
+                              (source) => source.name === sourceToggle.name
+                            )
+                              ? {
+                                  ...x,
+                                  enabled: x.sources.filter(x => x.enabled && x.name !== sourceToggle.name).length > 0 || !sourceToggle.enabled,
+                                  sources: x.sources.map((xy) =>
+                                    xy.name === sourceToggle.name
+                                      ? { ...xy, enabled: !xy.enabled }
+                                      : { ...xy }
+                                  ),
+                                }
+                              : { ...x }
+                        );
+                        console.log(newArray);
+                        setNewsSourcesToFetch(newArray);
                       }}
-                      title={source}
+                      title={sourceToggle.name}
                     />
-          
-                })
-                }</>)
-                
-            })
-          }
+                  );
+                })}
+              </>
+            );
+          })}
           <h3>Compacte weergave</h3>
           <Selectable
             title={"Compacted view"}
@@ -62,14 +96,14 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
             setChecked={() => setCompactView(!compactView)}
           />
           <h3>Overige instellingen</h3>
-        <p>Peaceful mode</p>
-        <Selectable
-          title={"Geen nieuwsartikelen. Voel je weer zen!"}
-          setChecked={() => setPeaceMode(!peaceMode)}
-          checked={peaceMode}
-        />
+          <p>Peaceful mode</p>
+          <Selectable
+            title={"Geen nieuwsartikelen. Voel je weer zen!"}
+            setChecked={() => setPeaceMode(!peaceMode)}
+            checked={peaceMode}
+          />
         </section>
-        
+
         <section className="bottomPanel">
           <button className="buttonLeft" onClick={() => setOpened(false)}>
             Sluiten
@@ -100,8 +134,8 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
 
 export default SettingsPage;
 
-
-{/* <Selectable
+{
+  /* <Selectable
 checked={newsSourcesToFetch.NU}
 setChecked={() =>
   setNewsSourcesToFetch({
@@ -160,4 +194,5 @@ setChecked={() =>
   })
 }
 title={"Tweakers.net"}
-/> */}
+/> */
+}

@@ -13,6 +13,12 @@ body {
   box-shadow: inset 0 40px 25px -7px rgba(0 36 52/0.4)
 }
 
+.biggerFont {
+  font-size: 1.5em;
+  font-weight: bold;
+  float: left;
+}
+
 
 /** item classes **/
 .panel {

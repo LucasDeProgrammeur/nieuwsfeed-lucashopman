@@ -6,7 +6,7 @@ import PlaceholderNewsItemView from "./components/PlaceHolderNewsItemsView";
 import SettingsPage from "./components/SettingsPage";
 import getNewsItems from "./helpers/getNewsItem";
 import sources from "./sources.json";
-import { sourceCategory, sourceToggle } from "./types/types";
+import { sourceArray, sourceCategory, sourceToggle } from "./types/types";
 
 type newsItems = {
   title: string;
@@ -23,15 +23,24 @@ function App() {
   const [peaceMode, setPeaceMode] = React.useState(false);
   const containerRef = React.createRef<HTMLDivElement>();
   const [newsSourcesToFetch, setNewsSourcesToFetch] = React.useState(() => {
-    let newsCategories: Array<sourceCategory> = JSON.parse(JSON.stringify(sources));
+    let newsCategories: Array<sourceCategory> = JSON.parse(
+      JSON.stringify(sources)
+    );
     let arrayGenerated: Array<sourceToggle> = [];
-    newsCategories.forEach((x: sourceCategory) => {
-      x.sources.forEach((x: string) => {
-        let toggleProperty = {source: x, enabled: false}
-        arrayGenerated = [...arrayGenerated, toggleProperty];
-      })
-    });
-    return arrayGenerated;
+    // newsCategories.forEach((x: sourceCategory) => {
+    //   x.sources.forEach((x: string) => {
+    //     let toggleProperty = {source: x, enabled: false}
+    //     arrayGenerated = [...arrayGenerated, toggleProperty];
+    //   })
+    // });
+    // return arrayGenerated;
+
+    const sourcesWithToggles = newsCategories.map((x) => ({
+      ...x,
+      enabled: true,
+      sources: x.sources.map((x: string) => ({name: x, enabled: true })),
+    }));
+    return sourcesWithToggles;
   });
 
   React.useEffect(() => {
@@ -52,7 +61,6 @@ function App() {
     };
     getNewsItemsToSet();
   }, [settingsOpen, newsSourcesToFetch]);
-  
 
   useEffect(() => {
     let observer = new IntersectionObserver((entries) => {
@@ -83,36 +91,40 @@ function App() {
         setPeaceMode={setPeaceMode}
       />
       {peaceMode && <PeaceMode setPeaceMode={setPeaceMode} />}
-      
-      {!peaceMode && <div
-        className={compactView ? "newsContainer compactView" : "newsContainer"}
-      >
-        {news.length > 0 ? (
-          news.map((n, i) => {
-            if (i < currentIndex) {
-              const lastElement = i === currentIndex - 10;
-              return (
-                <div
-                  className={lastElement ? "last-child" : ""}
-                  ref={lastElement ? containerRef : null}
-                >
-                  <NewsItem
-                    title={n.title}
-                    urlSource={n.link}
-                    imgSource={n.image}
-                    publishDate={n.date}
-                    sourceName={""}
-                    key={i}
-                  />
-                </div>
-              );
-            }
-            return <></>;
-          })
-        ) : (
-          <PlaceholderNewsItemView />
-        )}
-      </div>}
+
+      {!peaceMode && (
+        <div
+          className={
+            compactView ? "newsContainer compactView" : "newsContainer"
+          }
+        >
+          {news.length > 0 ? (
+            news.map((n, i) => {
+              if (i < currentIndex) {
+                const lastElement = i === currentIndex - 10;
+                return (
+                  <div
+                    className={lastElement ? "last-child" : ""}
+                    ref={lastElement ? containerRef : null}
+                  >
+                    <NewsItem
+                      title={n.title}
+                      urlSource={n.link}
+                      imgSource={n.image}
+                      publishDate={n.date}
+                      sourceName={""}
+                      key={i}
+                    />
+                  </div>
+                );
+              }
+              return <></>;
+            })
+          ) : (
+            <PlaceholderNewsItemView />
+          )}
+        </div>
+      )}
     </>
   );
 }

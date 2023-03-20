@@ -14,9 +14,13 @@ const getNewsItems = async (newsSourcesToFetch: Array<sourceToggle>) => {
   ];
   
   newsSourcesToFetch.forEach(x => {
-    if (x.enabled) {
-      newsLinks.push(`https://www.newsserver.lucashopman.nl/${x.source}articles`)
-    }
+
+    x.sources.forEach(x => {
+      if (x.enabled) {
+        newsLinks.push(`https://www.newsserver.lucashopman.nl/${x.name}articles`)
+      }
+    })
+
   })
 
   let result: newsItems = [];
