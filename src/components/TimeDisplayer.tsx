@@ -1,19 +1,10 @@
-import * as React from "react";
-import getTime from "../helpers/getTime";
-
 const TimeDisplayer = () => {
-  const [time, setTime] = React.useState<string>("");
-
-  React.useEffect(() => {
-    const getTimeToSet = async () => {
-      setTime(await getTime());
-    };
-    getTimeToSet();
-  }, []);
+  
+  let date = new Date(new Date().toLocaleString("en-US", {timeZone: "Europe/Amsterdam"}));
   return (
     <>
       <div className="timePanel">
-        <p>{time}</p>
+        <p>{date.getHours() + ":" + date.getMinutes().toString().slice(-2)}</p>
       </div>
     </>
   );

@@ -1,7 +1,3 @@
-import React, { useEffect, useRef } from "react";
-import getNewsItems from "../helpers/getNewsItem";
-import getTime from "../helpers/getTime";
-
 type Props = {
   title: string;
   urlSource: string;
@@ -82,6 +78,7 @@ const NewsItem = ({
       <a href={urlSource} target="_blank" rel="noreferrer">
         <div className="panel newsItem">
           <img
+            alt={"Artikel afbeelding"}
             className={"articleImage"}
             src={imgSource ? imgSource : require("../img/newsfeed.png")}
           ></img>
@@ -89,7 +86,12 @@ const NewsItem = ({
 
           <div className="sourceContainer">
             <h4>{time}</h4>
-            <img className="newsSource" src={image} width="24" />
+            <img
+              alt={sourceName}
+              className="newsSource"
+              src={image}
+              width="24"
+            />
           </div>
         </div>
       </a>

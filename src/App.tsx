@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import Header from "./components/Header";
 import NewsItem from "./components/NewsItem";
 import PeaceMode from "./components/Peacemode";
@@ -6,7 +6,7 @@ import PlaceholderNewsItemView from "./components/PlaceHolderNewsItemsView";
 import SettingsPage from "./components/SettingsPage";
 import getNewsItems from "./helpers/getNewsItem";
 import sources from "./sources.json";
-import { sourceArray, sourceCategory, sourceToggle } from "./types/types";
+import { sourceCategory } from "./types/types";
 
 type newsItems = {
   title: string;
@@ -18,7 +18,12 @@ type newsItems = {
 function App() {
   const [news, setNews] = React.useState<newsItems>([]);
   const [settingsOpen, setSettingsOpen] = React.useState(false);
-  const [compactView, setCompactView] = React.useState(false);
+  const [compactView, setCompactView] = React.useState(() => {
+    if (localStorage.getItem("compactView") === null) {
+      return false;
+    }
+    return JSON.parse(localStorage.getItem("compactView")!);
+  });
   const [currentIndex, setCurrentIndex] = React.useState(30);
   const [peaceMode, setPeaceMode] = React.useState(false);
   const containerRef = React.createRef<HTMLDivElement>();
@@ -26,34 +31,19 @@ function App() {
     let newsCategories: Array<sourceCategory> = JSON.parse(
       JSON.stringify(sources)
     );
-    let arrayGenerated: Array<sourceToggle> = [];
-    // newsCategories.forEach((x: sourceCategory) => {
-    //   x.sources.forEach((x: string) => {
-    //     let toggleProperty = {source: x, enabled: false}
-    //     arrayGenerated = [...arrayGenerated, toggleProperty];
-    //   })
-    // });
-    // return arrayGenerated;
+    if (localStorage.getItem("newsSources") === null) {
+      let defaultSourcesWithToggles = newsCategories.map((x) => ({
+        ...x,
+        enabled: true,
+        sources: x.sources.map((x: string) => ({name: x, enabled: true })),
+      }));
+      return defaultSourcesWithToggles;
+    }
 
-    const sourcesWithToggles = newsCategories.map((x) => ({
-      ...x,
-      enabled: true,
-      sources: x.sources.map((x: string) => ({name: x, enabled: true })),
-    }));
-    return sourcesWithToggles;
+    
+    return JSON.parse(localStorage.getItem("newsSources")!);
   });
 
-  React.useEffect(() => {
-    if (localStorage.getItem("newsSources")?.length) {
-      setNewsSourcesToFetch(
-        JSON.parse(localStorage.getItem("newsSources") || "{}")
-      );
-    }
-
-    if (localStorage.getItem("compactView")?.length) {
-      setCompactView(JSON.parse(localStorage.getItem("compactView") || "{}"));
-    }
-  }, []);
 
   React.useEffect(() => {
     const getNewsItemsToSet = async () => {

@@ -1,7 +1,7 @@
-import { FunctionComponent } from "react";
-import { sourceArray, sourceCategory, sourceToggle } from "../types/types";
+import { FunctionComponent, useState } from "react";
+import { sourceArray, sourceToggle } from "../types/types";
 import Selectable from "./Selectable";
-import sources from "../sources.json";
+import Modal from "./Modal";
 
 interface SettingsPageProps {
   opened: boolean;
@@ -24,9 +24,13 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
   setPeaceMode,
   peaceMode,
 }) => {
-  let srces = JSON.parse(JSON.stringify(sources));
+  const [localNewsSourcesToFetch, setLocalNewsSourcesToFetch] = useState(newsSourcesToFetch);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [localCompactView, setLocalCompactView] = useState(compactView);
+  const [localZenMode, setLocalZenMode] = useState(false);
   return opened ? (
     <>
+      {modalOpen ? <Modal text={"Selecteer tenminste één nieuwsbron"} setModalOpen={setModalOpen}/> : <></>}
       <div className="darkBackground"></div>
       <div className="settingsMenu">
         <section className="mainSettingsItems">
@@ -34,13 +38,13 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
           <p>
             <h3>Nieuwsbronnen</h3>
           </p>
-          {newsSourcesToFetch.map((x: sourceToggle, i: Number) => {
+          {localNewsSourcesToFetch.map((x: sourceToggle, i: Number) => {
             return (
               <>
                 <Selectable
                   checked={x.enabled}
                   setChecked={() => {
-                    let newToggleArray = newsSourcesToFetch.map(
+                    let newToggleArray = localNewsSourcesToFetch.map(
                       (categoryProps: sourceToggle) =>
                         categoryProps.category === x.category
                           ? {
@@ -53,7 +57,7 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
                             }
                           : { ...categoryProps }
                     );
-                    setNewsSourcesToFetch(newToggleArray);
+                    setLocalNewsSourcesToFetch(newToggleArray);
                   }}
                   title={x.category}
                   useBigFont={true}
@@ -63,7 +67,7 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
                     <Selectable
                       checked={sourceToggle.enabled}
                       setChecked={() => {
-                        const newArray = newsSourcesToFetch.map(
+                        const newArray = localNewsSourcesToFetch.map(
                           (x: sourceToggle) =>
                             x.sources.find(
                               (source) => source.name === sourceToggle.name
@@ -80,7 +84,7 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
                               : { ...x }
                         );
                         console.log(newArray);
-                        setNewsSourcesToFetch(newArray);
+                        setLocalNewsSourcesToFetch(newArray);
                       }}
                       title={sourceToggle.name}
                     />
@@ -92,34 +96,43 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
           <h3>Compacte weergave</h3>
           <Selectable
             title={"Compacted view"}
-            checked={compactView}
-            setChecked={() => setCompactView(!compactView)}
+            checked={localCompactView}
+            setChecked={() => setLocalCompactView(!localCompactView)}
           />
           <h3>Overige instellingen</h3>
           <p>Peaceful mode</p>
           <Selectable
             title={"Geen nieuwsartikelen. Voel je weer zen!"}
-            setChecked={() => setPeaceMode(!peaceMode)}
-            checked={peaceMode}
+            setChecked={() => setLocalZenMode(!localZenMode)}
+            checked={localZenMode}
           />
         </section>
 
         <section className="bottomPanel">
-          <button className="buttonLeft" onClick={() => setOpened(false)}>
+          <button className="buttonLeft" onClick={() => { 
+            setOpened(false); }}>
             Sluiten
           </button>
           <button
             className="buttonRight"
             onClick={() => {
+              if (localNewsSourcesToFetch.find((x: sourceArray) => x.enabled === true) === undefined) {
+                setModalOpen(true);
+                return;
+              }
+
+              setNewsSourcesToFetch(localNewsSourcesToFetch);
               localStorage.setItem(
                 "newsSources",
-                JSON.stringify(newsSourcesToFetch)
+                JSON.stringify(localNewsSourcesToFetch)
               );
               localStorage.setItem(
                 "compactView",
-                compactView ? "true" : "false"
+                localCompactView ? "true" : "false"
               );
+              setCompactView(localCompactView);
               setOpened(false);
+              setPeaceMode(localZenMode)
             }}
           >
             Opslaan
@@ -134,65 +147,3 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
 
 export default SettingsPage;
 
-{
-  /* <Selectable
-checked={newsSourcesToFetch.NU}
-setChecked={() =>
-  setNewsSourcesToFetch({
-    ...newsSourcesToFetch,
-    NU: !newsSourcesToFetch.NU,
-  })
-}
-title={"NU.nl"}
-/>
-<Selectable
-checked={newsSourcesToFetch.AD}
-setChecked={() =>
-  setNewsSourcesToFetch({
-    ...newsSourcesToFetch,
-    AD: !newsSourcesToFetch.AD,
-  })
-}
-title={"AD.nl"}
-/>
-<Selectable
-checked={newsSourcesToFetch.NOS}
-setChecked={() =>
-  setNewsSourcesToFetch({
-    ...newsSourcesToFetch,
-    NOS: !newsSourcesToFetch.NOS,
-  })
-}
-title={"NOS.nl"}
-/>
-<Selectable
-checked={newsSourcesToFetch.Security}
-setChecked={() =>
-  setNewsSourcesToFetch({
-    ...newsSourcesToFetch,
-    Security: !newsSourcesToFetch.Security,
-  })
-}
-title={"Security.nl"}
-/>
-<Selectable
-checked={newsSourcesToFetch.Telegraaf}
-setChecked={() =>
-  setNewsSourcesToFetch({
-    ...newsSourcesToFetch,
-    Telegraaf: !newsSourcesToFetch.Telegraaf,
-  })
-}
-title={"Telegraaf.nl"}
-/>
-<Selectable
-checked={newsSourcesToFetch.Tweakers}
-setChecked={() =>
-  setNewsSourcesToFetch({
-    ...newsSourcesToFetch,
-    Tweakers: !newsSourcesToFetch.Tweakers,
-  })
-}
-title={"Tweakers.net"}
-/> */
-}
