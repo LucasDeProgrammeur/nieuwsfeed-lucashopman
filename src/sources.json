@@ -1,0 +1,16 @@
+[
+    {
+        "category": "Nieuws",
+        "sources": [
+            "Telegraaf", "AD", "NU", "NOS"
+        ]
+    },
+    {
+        "category": "Tech",
+        "sources": [
+            "Security", "Tweakers"
+        ]
+   }
+
+    
+]

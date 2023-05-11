@@ -1,4 +1,5 @@
 import Axios from "axios";
+import { sourceToggle } from "../types/types";
 
 type newsItems = {
   title: string;
@@ -7,15 +8,20 @@ type newsItems = {
   image: string;
 }[];
 
-const getNewsItems = async (newsSourcesToFetch: any) => {
-  let newsLinks = [
-  ];
+const getNewsItems = async (newsSourcesToFetch: Array<sourceToggle>) => {
 
-  for (const property in newsSourcesToFetch) {
-    if (newsSourcesToFetch[property] === true && property !== "false") {
-      newsLinks.push(`https://www.newsserver.lucashopman.nl/${property}articles`)
-    }
-  }
+  let newsLinks:Array<string> = [
+  ];
+  
+  newsSourcesToFetch.forEach(x => {
+
+    x.sources.forEach(x => {
+      if (x.enabled) {
+        newsLinks.push(`https://www.newsserver.lucashopman.nl/${x.name}articles`)
+      }
+    })
+
+  })
 
   let result: newsItems = [];
 
