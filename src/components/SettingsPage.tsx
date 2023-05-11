@@ -12,6 +12,8 @@ interface SettingsPageProps {
   setCompactView: any;
   setPeaceMode: React.Dispatch<React.SetStateAction<boolean>>;
   peaceMode: boolean;
+  setWeatherLocation: React.Dispatch<React.SetStateAction<string>>;
+  weatherLocation: string;
 }
 
 const SettingsPage: FunctionComponent<SettingsPageProps> = ({
@@ -23,14 +25,25 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
   setCompactView,
   setPeaceMode,
   peaceMode,
+  setWeatherLocation,
+  weatherLocation,
 }) => {
-  const [localNewsSourcesToFetch, setLocalNewsSourcesToFetch] = useState(newsSourcesToFetch);
+  const [localNewsSourcesToFetch, setLocalNewsSourcesToFetch] =
+    useState(newsSourcesToFetch);
   const [modalOpen, setModalOpen] = useState(false);
   const [localCompactView, setLocalCompactView] = useState(compactView);
   const [localZenMode, setLocalZenMode] = useState(false);
+  const [localLocation, setLocalLocation] = useState(weatherLocation);
   return opened ? (
     <>
-      {modalOpen ? <Modal text={"Selecteer tenminste één nieuwsbron"} setModalOpen={setModalOpen}/> : <></>}
+      {modalOpen ? (
+        <Modal
+          text={"Selecteer tenminste één nieuwsbron"}
+          setModalOpen={setModalOpen}
+        />
+      ) : (
+        <></>
+      )}
       <div className="darkBackground"></div>
       <div className="settingsMenu">
         <section className="mainSettingsItems">
@@ -74,7 +87,12 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
                             )
                               ? {
                                   ...x,
-                                  enabled: x.sources.filter(x => x.enabled && x.name !== sourceToggle.name).length > 0 || !sourceToggle.enabled,
+                                  enabled:
+                                    x.sources.filter(
+                                      (x) =>
+                                        x.enabled &&
+                                        x.name !== sourceToggle.name
+                                    ).length > 0 || !sourceToggle.enabled,
                                   sources: x.sources.map((xy) =>
                                     xy.name === sourceToggle.name
                                       ? { ...xy, enabled: !xy.enabled }
@@ -83,7 +101,6 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
                                 }
                               : { ...x }
                         );
-                        console.log(newArray);
                         setLocalNewsSourcesToFetch(newArray);
                       }}
                       title={sourceToggle.name}
@@ -93,6 +110,21 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
               </>
             );
           })}
+          <h3>Weerlocatie (stad of straat)</h3>
+          <p>
+            <em>
+              Locaties worden automatisch omgezet naar coördinaten,
+              locatievoorbeelden: "Groningen", "Arnhem"
+            </em>
+          </p>
+          <input
+            type="text"
+            defaultValue={"De Bilt"}
+            value={localLocation}
+            onChange={(e) => {
+              setLocalLocation(e.target.value);
+            }}
+          />
           <h3>Compacte weergave</h3>
           <Selectable
             title={"Compacted view"}
@@ -109,14 +141,22 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
         </section>
 
         <section className="bottomPanel">
-          <button className="buttonLeft" onClick={() => { 
-            setOpened(false); }}>
+          <button
+            className="buttonLeft"
+            onClick={() => {
+              setOpened(false);
+            }}
+          >
             Sluiten
           </button>
           <button
             className="buttonRight"
             onClick={() => {
-              if (localNewsSourcesToFetch.find((x: sourceArray) => x.enabled === true) === undefined) {
+              if (
+                localNewsSourcesToFetch.find(
+                  (x: sourceArray) => x.enabled === true
+                ) === undefined
+              ) {
                 setModalOpen(true);
                 return;
               }
@@ -130,9 +170,11 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
                 "compactView",
                 localCompactView ? "true" : "false"
               );
+              localStorage.setItem("location", localLocation);
               setCompactView(localCompactView);
               setOpened(false);
-              setPeaceMode(localZenMode)
+              setPeaceMode(localZenMode);
+              setWeatherLocation(localLocation);
             }}
           >
             Opslaan
@@ -146,4 +188,3 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
 };
 
 export default SettingsPage;
-

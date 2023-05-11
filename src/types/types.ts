@@ -20,3 +20,9 @@ export interface sourceArray {
   name: string;
   enabled: boolean;
 }
+
+export interface geoCodingData {
+  place_id: Number;
+  lat: Number;
+  lon: Number;
+}

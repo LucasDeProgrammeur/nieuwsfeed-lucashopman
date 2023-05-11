@@ -29,29 +29,30 @@ export const options = {
   responsive: true,
   plugins: {
     title: {
-        display: true,
-        text: "Neerslag (mm)"
+      display: true,
+      text: "Neerslag (mm)",
     },
     legend: {
       display: false,
     },
   },
   scales: {
-   y: {
-    min: 0,
-   }     
-  }
+    y: {
+      min: 0,
+    },
+  },
 };
 
 const labels = ["January", "February", "March", "April", "May", "June", "July"];
 
 export function WeatherLineChart({ hourlyRain, hours }: Props) {
-    let hour = new Date().getHours();
-    let hoursFormatted = hours.map(x => {
-        return new Date(x).getHours();
-    }).filter(x => x > hour);
-    let labels = hoursFormatted.map((x: Number) => x + "u");
-    
+  let hour = new Date().getHours();
+  let hoursFormatted = hours
+    .map((x) => {
+      return new Date(x).getHours();
+    })
+    .filter((x) => x > hour);
+  let labels = hoursFormatted.map((x: Number) => x + "u");
   const data = {
     labels,
     datasets: [

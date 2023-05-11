@@ -7,15 +7,22 @@ interface Props {
   weather: any;
   weatherCodes: Array<WeatherCode>;
   setWidgetEnabled: React.Dispatch<React.SetStateAction<boolean>>;
+  weatherLocation: string;
 }
 
-const WeatherWidget = ({ weather, weatherCodes, setWidgetEnabled }: Props) => {
+const WeatherWidget = ({
+  weather,
+  weatherCodes,
+  setWidgetEnabled,
+  weatherLocation,
+}: Props) => {
   const [weatherCodeEntry, setWeatherCodeEntry] = useState(weatherCodes[0]);
-
   useEffect(() => {
     setWeatherCodeEntry(
       weatherCodes[
-        weatherCodes.findIndex((e) => e.code === weather.current_weather.weathercode)
+        weatherCodes.findIndex(
+          (e) => e.code === weather.current_weather.weathercode
+        )
       ]
     );
   }, [weather, weatherCodes]);
@@ -26,9 +33,12 @@ const WeatherWidget = ({ weather, weatherCodes, setWidgetEnabled }: Props) => {
         <p className="tempIndicator"> °C</p>
         <p className="conditionIcon">{weatherCodeEntry.letter}</p>
       </section>
-      <WeatherLineChart hourlyRain={weather.hourly.rain} hours={weather.hourly.time}/>
+      <WeatherLineChart
+        hourlyRain={weather.hourly.rain}
+        hours={weather.hourly.time}
+      />
       <section className="bottomWeatherInfo">
-        <p>De Bilt</p>
+        <p>{weatherLocation}</p>
         <p>{weatherCodeEntry.conditionDutch}</p>
         <p>Windsnelheid: {weather.current_weather.windspeed} km/h</p>
       </section>

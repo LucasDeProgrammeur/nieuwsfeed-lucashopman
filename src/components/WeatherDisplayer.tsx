@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 import getWeather from "../helpers/getWeather";
-import { WeatherCode } from "../types/types";
+import { WeatherCode, geoCodingData } from "../types/types";
 import WeatherWidget from "./WeatherWidget";
+import { json } from "stream/consumers";
 
-const WeatherDisplayer = () => {
+interface WeatherDisplayerProps {
+  weatherLocation: string;
+}
+
+const WeatherDisplayer = ({ weatherLocation }: WeatherDisplayerProps) => {
   const [temp, setTemp] = useState(0);
   const [currentWeatherCode, setCurrentWeatherCode] = useState(0);
   const [weather, setWeather] = useState({});
@@ -128,19 +133,24 @@ const WeatherDisplayer = () => {
       code: 80,
       letter: "Q",
       condition: "rainShowerLight",
-      conditionDutch: "Lichte regenbui"
-    }
+      conditionDutch: "Lichte regenbui",
+    },
   ];
 
   useEffect(() => {
     const fetchData = async () => {
-      let weather = await getWeather();
+      let result: any = await fetch(
+        `https://geocode.maps.co/search?q=${weatherLocation}`
+      ).then((res) => {
+        return res.json();
+      });
+      let weather = await getWeather(result[0].lat, result[0].lon);
       setTemp(weather.current_weather.temperature);
       setCurrentWeatherCode(weather.current_weather.weathercode);
       setWeather(weather);
     };
     fetchData();
-  }, []);
+  }, [weatherLocation]);
 
   return (
     <>
@@ -164,6 +174,7 @@ const WeatherDisplayer = () => {
           setWidgetEnabled={setWidgetEnabled}
           weather={weather}
           weatherCodes={weatherCodes}
+          weatherLocation={weatherLocation}
         />
       )}
     </>

@@ -18,6 +18,12 @@ type newsItems = {
 function App() {
   const [news, setNews] = React.useState<newsItems>([]);
   const [settingsOpen, setSettingsOpen] = React.useState(false);
+  const [weatherLocation, setWeatherLocation] = React.useState(() => {
+    if (localStorage.getItem("location") === null) {
+      return "De Bilt";
+    }
+    return localStorage.getItem("location")!;
+  });
   const [compactView, setCompactView] = React.useState(() => {
     if (localStorage.getItem("compactView") === null) {
       return false;
@@ -35,15 +41,13 @@ function App() {
       let defaultSourcesWithToggles = newsCategories.map((x) => ({
         ...x,
         enabled: true,
-        sources: x.sources.map((x: string) => ({name: x, enabled: true })),
+        sources: x.sources.map((x: string) => ({ name: x, enabled: true })),
       }));
       return defaultSourcesWithToggles;
     }
 
-    
     return JSON.parse(localStorage.getItem("newsSources")!);
   });
-
 
   React.useEffect(() => {
     const getNewsItemsToSet = async () => {
@@ -69,7 +73,11 @@ function App() {
 
   return (
     <>
-      <Header isOpen={settingsOpen} setIsOpen={setSettingsOpen} />
+      <Header
+        isOpen={settingsOpen}
+        weatherLocation={weatherLocation}
+        setIsOpen={setSettingsOpen}
+      />
       <SettingsPage
         opened={settingsOpen}
         setOpened={setSettingsOpen}
@@ -79,6 +87,8 @@ function App() {
         setCompactView={setCompactView}
         peaceMode={peaceMode}
         setPeaceMode={setPeaceMode}
+        setWeatherLocation={setWeatherLocation}
+        weatherLocation={weatherLocation}
       />
       {peaceMode && <PeaceMode setPeaceMode={setPeaceMode} />}
 

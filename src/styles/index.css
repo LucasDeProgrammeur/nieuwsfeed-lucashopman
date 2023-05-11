@@ -10,7 +10,7 @@ body {
   font-family: "Heebo";
   background-color: rgb(15, 16, 17);
   user-select: none;
-  box-shadow: inset 0 40px 25px -7px rgba(0 36 52/0.4)
+  box-shadow: inset 0 40px 25px -7px rgba(0 36 52/0.4);
 }
 
 .biggerFont {
@@ -20,11 +20,19 @@ body {
   line-height: 35px;
 }
 
-
 /** item classes **/
+input[type="text"] {
+  border-radius: 5px;
+  padding: 10px;
+  border: 1.7px solid rgb(45, 51, 54);
+  font-family: "Heebo";
+  background-color: rgba(255, 255, 255, 0.95);
+  width: calc(100% - 20px);
+}
+
 .panel {
   display: inline-block;
-  background-color: rgb(60 70 82 /0.30);
+  background-color: rgb(60 70 82 /0.3);
   border-radius: 10px;
 }
 
@@ -55,7 +63,7 @@ body {
   position: relative;
   display: block;
   min-height: 350px;
-  width: calc(100vw /7);
+  width: calc(100vw / 7);
   border: 1.7px solid rgb(45, 51, 54);
   box-shadow: 1px 1px 10px rgb(70 81 105 /0.15);
 }
@@ -117,21 +125,25 @@ a {
   }
 }
 
-
 .loadGradient {
-
-  background: linear-gradient(90deg, rgb(60 70 82 /0.30), rgb(70 69 80 /0.5), rgb(60 70 82 /0.30)) 400% 400%;
+  background: linear-gradient(
+      90deg,
+      rgb(60 70 82 /0.3),
+      rgb(70 69 80 /0.5),
+      rgb(60 70 82 /0.3)
+    )
+    400% 400%;
   background-size: 200% 200%;
-  animation: gradient 0.5s ease-in-out infinite, opacity 0.3s ease-in-out forwards;
+  animation: gradient 0.5s ease-in-out infinite,
+    opacity 0.3s ease-in-out forwards;
 }
-
 
 .shadowHolder {
   position: fixed;
   top: 0;
   left: 0;
   height: 100%;
-  width: 100%;;
+  width: 100%;
   overflow: hidden;
   box-shadow: inset 0px -400px 200px rgb(18 20 25/0.95);
   z-index: 4;
@@ -153,12 +165,10 @@ label {
   background-color: rgb(20 20 20 /0.3);
 }
 
-
 /** Compact view for desktop and mobile **/
 .compactView {
   gap: 10px;
 }
-
 
 .compactView .newsItem {
   width: calc(100vw - 60px);
@@ -188,9 +198,6 @@ label {
   border: 1.7px solid rgb(45, 51, 54);
 }
 
-
-
-
 /** Settings menu **/
 .settingsMenu {
   position: fixed;
@@ -209,7 +216,10 @@ label {
 }
 
 .mainSettingsItems {
-  padding: 20px;
+  margin: 20px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 80vh;
 }
 
 .bottomPanel {
@@ -217,7 +227,8 @@ label {
   border-radius: 0 0 15px 15px;
 }
 
-.bottomPanel .buttonLeft, .bottomPanel .buttonRight {
+.bottomPanel .buttonLeft,
+.bottomPanel .buttonRight {
   width: 50%;
 }
 
@@ -232,8 +243,6 @@ label {
   color: white;
   font-family: "Heebo";
 }
-
-
 
 .bottomPanel button:hover {
   background-color: rgba(36, 38, 49, 1);
@@ -251,7 +260,6 @@ label {
   border-radius: 0 0 15px 15px;
 }
 
-
 .settingsMenu h3 {
   padding: 5px 0;
   margin: 0;
@@ -262,7 +270,7 @@ label {
   left: 0;
   top: 0;
   height: 100%;
-  width: 100vw; 
+  width: 100vw;
   background-color: black;
   opacity: 0.7;
   backdrop-filter: blur(10px);
@@ -301,10 +309,13 @@ label {
   }
 }
 
-
 @media screen and (max-width: 1024px) {
   body {
     font-size: 0.6em;
+  }
+
+  .settingsMenu {
+    top: 0px !important;
   }
 
   .modal {
@@ -319,7 +330,7 @@ label {
 
   .newsItem {
     height: 100px;
-    width: calc(100vw /3);
+    width: calc(100vw / 3);
     min-height: 300px;
   }
 
@@ -359,14 +370,13 @@ label {
   .compactView .articleImage {
     height: 70px !important;
     width: 70px !important;
-    margin:0 !important;
+    margin: 0 !important;
     border-radius: 10px 0 0 0 !important;
   }
 
   .compactView .newsItem {
     border-radius: 10px;
   }
-
 
   /* .compactView .newsItem h3 {
     display: -webkit-box;
@@ -403,12 +413,12 @@ label {
       position: absolute;
       right: 0;
       float: right;
-      content: '\2026';
+      content: "\2026";
       margin-left: -2rem;
       width: 2rem;
     }
     .compactView .newsItem h3:after {
-      content: '';
+      content: "";
       position: absolute;
       height: 50px;
       width: 100%;
@@ -442,5 +452,4 @@ label {
     gap: 1px;
     position: relative;
   }
-
 }
