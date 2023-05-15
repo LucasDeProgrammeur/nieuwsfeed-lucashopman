@@ -3,28 +3,47 @@
   src: url("../fonts/meteocons-webfont.ttf");
 }
 
+:root {
+  --base-padding: 7px;
+  --padding-multiplier: 1.4;
+  --padding-s: var(--base-padding);
+  --padding-m: calc(var(--base-padding) * var(--padding-multiplier));
+  --padding-l: calc(var(--base-padding) * (var(--padding-multiplier) * 2));
+
+  --base-margin: 7px;
+  --margin-multiplier: 2;
+  --margin-s: var(--base-margin);
+  --margin-m: calc(var(--base-margin) * var(--margin-multiplier));
+  --margin-l: calc(var(--base-margin) * (var(--margin-multiplier) * 2));
+
+  --base-radius: 8px;
+  --radius-multiplier: 1.5;
+  --radius-s: var(--base-radius);
+  --radius-m: calc(var(--base-radius) * var(--radius-multiplier));
+  --radius-l: calc(var(--base-radius) * (var(--radius-multiplier) * 2));
+
+  --base-color-darker: rgb(17, 17, 19);
+  --base-color: rgb(25 26 31);
+  --base-color-lighter: rgb(32, 32, 40);
+  --border-color: rgb(45, 51, 54);
+  --color-glassy: rgb(20 20 25/0.6);
+}
+
 body {
   color: white;
   margin: 0;
   top: 0;
   font-family: "Heebo";
-  background-color: rgb(15, 16, 17);
+  background-color: var(--base-color-darker);
   user-select: none;
   box-shadow: inset 0 40px 25px -7px rgba(0 36 52/0.4);
 }
 
-.biggerFont {
-  font-size: 1.5em;
-  font-weight: bold;
-  float: left;
-  line-height: 35px;
-}
-
 /** item classes **/
 input[type="text"] {
-  border-radius: 5px;
-  padding: 10px;
-  border: 1.7px solid rgb(45, 51, 54);
+  border-radius: var(--base-radius);
+  padding: var(--padding-m);
+  border: 1.7px solid var(--border-color);
   font-family: "Heebo";
   background-color: rgba(255, 255, 255, 0.95);
   width: calc(100% - 20px);
@@ -32,25 +51,25 @@ input[type="text"] {
 
 .panel {
   display: inline-block;
-  background-color: rgb(60 70 82 /0.3);
-  border-radius: 10px;
+  background-color: var(--base-color);
+  border-radius: var(--radius-m);
 }
 
 .newsContainer {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: var(--padding-l);
 }
 
 .modal {
   width: 20%;
   z-index: 6;
-  background-color: rgb(44, 48, 54);
+  background-color: var(--base-color);
   position: fixed;
   top: 30%;
   left: 40%;
-  border-radius: 17px;
+  border-radius: var(--radius-l);
   box-shadow: 1px 1px 10px rgb(70 81 105 /0.15);
 }
 
@@ -62,18 +81,17 @@ input[type="text"] {
 .newsItem {
   position: relative;
   display: block;
-  min-height: 350px;
-  width: calc(100vw / 7);
-  border: 1.7px solid rgb(45, 51, 54);
+  aspect-ratio: 10/13;
+  height: 350px;
+  border: 1.7px solid var(--border-color);
   box-shadow: 1px 1px 10px rgb(70 81 105 /0.15);
 }
 .articleImage {
   display: block;
   object-fit: cover;
-  width: inherit;
-  /* width: 60%; */
-  border-radius: 10px 10px 0px 0px;
-  aspect-ratio: 16/11;
+  width: 100%;
+  height: 50%;
+  border-radius: var(--radius-m) var(--radius-m) 0px 0px;
 }
 
 a {
@@ -84,8 +102,8 @@ a {
   display: block;
   color: white;
   text-decoration: none;
-  margin: 0 0 10px 5px;
-  padding: 13px;
+  margin: 0 var(--margin-s);
+  padding: var(--padding-m);
   font-size: 0.95em;
   letter-spacing: 0.4px;
 }
@@ -94,8 +112,8 @@ a {
   display: inline-block;
   color: white;
   margin: 0;
-  padding-top: 8px;
-  padding-left: 5px;
+  padding-top: var(--padding-m);
+  padding-left: var(--padding-s);
 }
 
 .newsSource {
@@ -156,46 +174,48 @@ label {
 
 .sourceContainer {
   position: absolute;
-  padding: 5px;
+  padding: var(--padding-s);
   bottom: 0;
   left: 0;
-  width: calc(100% - 10px);
-  border-radius: 0 0 10px 10px;
+  width: calc(100% - var(--padding-s) * 2);
+  border-radius: 0 0 var(--radius-m) var(--radius-m);
   border-top: 1.7px solid rgb(45, 51, 54);
-  background-color: rgb(20 20 20 /0.3);
+  background-color: var(--base-color-darker);
 }
 
 /** Compact view for desktop and mobile **/
 .compactView {
-  gap: 10px;
+  gap: var(--padding-m);
 }
 
 .compactView .newsItem {
   width: calc(100vw - 60px);
   min-height: 50px;
   padding: 0;
+  aspect-ratio: unset;
+  height: unset;
 }
 
 .compactView .newsItem .articleImage {
   float: left;
-  width: 50px;
-  height: 50px;
-  border-radius: 10px 0 0 10px;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-m) 0 0 var(--radius-m);
 }
 
 .compactView .newsItem h3 {
   display: inline-block;
   /* line-height: 50px; */
-  margin: 0 0 0px 20px;
+  margin: 0 0 0px var(--margin-m);
 }
 
 .compactView .sourceContainer {
   float: right;
   width: 20%;
   position: unset;
-  height: calc(50px - 1.6px - 10px);
-  border-radius: 0 10px 10px 0px;
-  border: 1.7px solid rgb(45, 51, 54);
+  height: calc(44px - var(--padding-m));
+  border-radius: 0 var(--radius-m) var(--radius-m) 0px;
+  border: 1.7px solid var(--border-color);
 }
 
 /** Settings menu **/
@@ -205,18 +225,18 @@ label {
   width: 40%;
   left: 30%;
   top: 80px;
-  border-radius: 15px;
+  border-radius: var(--radius-l);
   z-index: 5;
   box-shadow: 1px 1px 10px rgb(20 29 42 /0.9);
 
   backdrop-filter: blur(7px) saturate(167%);
   -webkit-backdrop-filter: blur(16px) saturate(167%);
-  background-color: rgba(32, 35, 42, 0.79);
-  border: 1px solid rgba(80, 83, 87, 0.3);
+  background-color: var(--color-glassy);
+  border: 1px solid var(--border-color);
 }
 
 .mainSettingsItems {
-  margin: 20px;
+  margin: var(--margin-m);
   overflow-y: scroll;
   overflow-x: hidden;
   max-height: 80vh;
@@ -224,7 +244,7 @@ label {
 
 .bottomPanel {
   width: 100%;
-  border-radius: 0 0 15px 15px;
+  border-radius: 0 0 var(--radius-l) var(--radius-l);
 }
 
 .bottomPanel .buttonLeft,
@@ -237,31 +257,31 @@ label {
 }
 
 .bottomPanel button {
-  background-color: rgba(29, 32, 37, 1);
-  border: 1.2px solid rgb(38, 42, 51);
+  background-color: var(--base-color-darker);
+  border: 1.2px solid var(--border-color);
   height: 50px;
   color: white;
   font-family: "Heebo";
 }
 
 .bottomPanel button:hover {
-  background-color: rgba(36, 38, 49, 1);
+  background-color: var(--base-color-lighter);
 }
 
 .buttonLeft {
-  border-radius: 0 0 0 15px;
+  border-radius: 0 0 0 var(--radius-l);
 }
 
 .buttonRight {
-  border-radius: 0 0 15px 0;
+  border-radius: 0 0 var(--radius-l) 0;
 }
 
 .buttonBoth {
-  border-radius: 0 0 15px 15px;
+  border-radius: 0 0 var(--radius-l) var(--radius-l);
 }
 
 .settingsMenu h3 {
-  padding: 5px 0;
+  padding: var(--padding-s) 0;
   margin: 0;
 }
 
@@ -279,7 +299,7 @@ label {
 
 .loadingBar {
   width: calc(100% - 100px);
-  margin: 50px;
+  margin: var(--margin-l);
   height: 10px;
   background-color: rgb(37, 33, 37);
 }
@@ -305,7 +325,7 @@ label {
 
 @media screen and (max-width: 1200px) {
   .panel {
-    margin: 30px 6%;
+    margin: var(--margin-l) 6%;
   }
 }
 
@@ -325,17 +345,11 @@ label {
   }
 
   .modal p {
-    padding: 20px;
-  }
-
-  .newsItem {
-    height: 100px;
-    width: calc(100vw / 3);
-    min-height: 300px;
+    padding: var(--padding-m);
   }
 
   .newsContainer {
-    gap: 5px;
+    gap: var(--padding-s);
   }
 
   label {
@@ -347,11 +361,11 @@ label {
   }
 
   .panel {
-    margin: 5px;
+    margin: var(--margin-s);
   }
 
   .articleImage {
-    height: 150px;
+    height: 100px;
   }
 
   .settingsCog {
@@ -371,25 +385,13 @@ label {
     height: 70px !important;
     width: 70px !important;
     margin: 0 !important;
-    border-radius: 10px 0 0 0 !important;
+    border-radius: var(--radius-m) 0 0 0 !important;
   }
 
   .compactView .newsItem {
-    border-radius: 10px;
+    border-radius: var(--radius-m);
+    min-height: 105px;
   }
-
-  /* .compactView .newsItem h3 {
-    display: -webkit-box;
-    max-width: 60px;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 1.1em;
-    height: 100px;
-    border: 1px solid white;
-  } */
 
   .compactView .newsItem h3 {
     display: block;
@@ -433,7 +435,7 @@ label {
   }
 
   .compactView .sourceContainer {
-    width: calc(100% - 10px);
+    width: calc(100% - var(--padding-s) * 2);
     border-radius: 0 0 10px 10px;
     height: 20px;
   }

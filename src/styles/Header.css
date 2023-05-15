@@ -1,227 +1,274 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap");
 
 header {
-    height: 50px;
-    width: calc(100% - 40px);
-    padding: 0 20px;
-    margin-bottom: 20px;
+  height: 50px;
+  width: calc(100% - 40px);
+  padding: 0 20px;
+  margin-bottom: 20px;
 }
 
 header p {
-    display: table-cell;
-    padding: 0 5px;
-    vertical-align: middle;
+  display: table-cell;
+  padding: 0 5px;
+  vertical-align: middle;
 }
 
 header h1 {
-    pointer-events: none;
-    position: absolute;
-    text-align: center;
-    font-family: "Bevan";
-    width: 100%;
-    top: 0;
-    left: 0;
-    margin: 0;
+  pointer-events: none;
+  position: absolute;
+  text-align: center;
+  font-family: "Bevan";
+  width: 100%;
+  top: 0;
+  left: 0;
+  margin: 0;
 }
 
-.weatherPanel, .timePanel {
-    float: left;
-    display: table;
-    gap: 5px;
-    justify-content: center;
-    height: 50px;
-    margin: 0 5px;
-    border-radius: 7.5px;
-    transition: background-color .2s, color .2s;
+.weatherPanel,
+.timePanel {
+  float: left;
+  display: table;
+  gap: 5px;
+  justify-content: center;
+  height: 50px;
+  margin: 0 5px;
+  border-radius: 7.5px;
+  transition: background-color 0.2s, color 0.2s;
 }
 
 .weatherPanel:hover {
-    background-color: rgb(180, 182, 184);
-    color:rgb(27, 27, 31);
+  background-color: rgb(180, 182, 184);
+  color: rgb(27, 27, 31);
 }
 
-
 .weatherType {
-    font-family: "meteocons";
+  font-family: "meteocons";
 }
 
 .settingsCog {
-    float: right;
-    height: 32px;
-    width: 32px;
-    padding: 7.5px;
-    margin-right: 30px;
+  float: right;
+  height: 41px;
+  width: 33px;
+  padding: 7.5px;
+  margin-right: 30px;
 }
 
 /**Weather widget **/
 .widgetEnabled {
-    background-color: rgba(248 247 243/0.9);
-    color:rgb(42, 43, 44);
-    animation: backColor 0.2s forwards;
+  background-color: rgba(248 247 243/0.9);
+  color: rgb(42, 43, 44);
+  animation: backColor 0.2s forwards;
 
-    border-radius: 7.5px 7.5px 0 0;
+  border-radius: 7.5px 7.5px 0 0;
 }
 
 @keyframes backColor {
-    0% {
-        color: rgb(248, 247, 243);
-        background-color: rgba(248 247 243/0);
-    }
-    100% {
-        color:rgb(42, 43, 44);
-        background-color: rgba(248 247 243/0.9);
-    }
+  0% {
+    color: rgb(248, 247, 243);
+    background-color: rgba(248 247 243/0);
+  }
+  100% {
+    color: rgb(42, 43, 44);
+    background-color: rgba(248 247 243/0.9);
+  }
 }
 
 .bottomWeatherInfo p {
-    display: block;
-    margin: 0;
-    font-size: 0.87em;
-    line-height: 17.5px;
+  display: block;
+  margin: 0;
+  font-size: 0.87em;
+  line-height: 17.5px;
 }
 
 .weatherWidget {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    justify-content: space-evenly;
-    transition: background-color 0.2s, color 0.2s;
-    z-index: 7;
-    height: 400px;
-    top: calc(50px - 15px);
-    left: 0;
-    width: 200px;
-    margin: 15px;
-    padding: 20px;
-    background-color: rgb(248, 247, 243);
-    color: rgb(11, 12, 13);
-    border-radius: 15px;
-    z-index: 1;
-    box-shadow: 0px 20px 30px rgba(0 0 0/.5);
-    transition: background-color 1s;
-    animation: weatherWidgetAppear 0.15s  ease-out;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  justify-content: space-evenly;
+  transition: background-color 0.2s, color 0.2s;
+  z-index: 7;
+  height: 400px;
+  top: calc(50px - 15px);
+  left: 0;
+  width: 200px;
+  margin: 15px;
+  padding: 20px;
+  background-color: rgb(248, 247, 243);
+  color: rgb(11, 12, 13);
+  border-radius: 15px;
+  z-index: 1;
+  box-shadow: 0px 20px 30px rgba(0 0 0/0.5);
+  transition: background-color 1s;
+  animation: weatherWidgetAppear 0.15s ease-out;
 }
 
 @keyframes weatherWidgetAppear {
-    0% {
-        transform: scale(0.95);
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
-
 .weatherWidget h3 {
-    margin: 0;
-    height: auto;
-    font-size: 2em;
-    font-family: 'Quicksand';
-    opacity: 0.92;
+  margin: 0;
+  height: auto;
+  font-size: 2em;
+  font-family: "Quicksand";
+  opacity: 0.92;
 }
 
 .topWeatherInfo {
-    display: flex;
+  display: flex;
 }
 
 .bottomWeatherInfo {
-    display: inline-block;
-    min-height: 40px;
+  display: inline-block;
+  min-height: 40px;
 }
 
 .tempIndicator {
-    font-family: 'Quicksand';
-    margin: 0;
-    margin-bottom: 20px;
+  font-family: "Quicksand";
+  margin: 0;
+  margin-bottom: 20px;
 }
 
 .conditionIcon {
-    font-family: 'meteocons';
-    font-size: 3em;
-    margin: 0px 10px 10px 10px;
-    flex: 1;
-    text-align: right;
+  font-family: "meteocons";
+  font-size: 3em;
+  margin: 0px 10px 10px 10px;
+  flex: 1;
+  text-align: right;
 }
 
-
-
 @media screen and (max-width: 1024px) {
-    header h1 {
-        margin-top: 12.5px;
-        font-size: 0.95rem;
-      }
-      header {
-        padding: 0 10px;
-      }
-      .weatherWidget {
-        width: calc(100% - 70px);
-        height: calc(100% - 110px);
-        border-radius: 15px;
-        font-size: 1.4rem;
+  header h1 {
+    margin-top: 12.5px;
+    font-size: 0.95rem;
+  }
+  header {
+    padding: 0 10px;
+  }
+  .weatherWidget {
+    width: calc(100% - 70px);
+    height: calc(100% - 110px);
+    border-radius: 15px;
+    font-size: 1.4rem;
+  }
+  .bottomWeatherInfo {
+    line-height: 35px;
+    font-size: 0.95rem;
+  }
 
-      }
-      .bottomWeatherInfo {
-        line-height: 35px;
-        font-size: 0.95rem;
-      }
+  .topWeatherInfo {
+    height: 60%;
+  }
 
-      .topWeatherInfo {
-        height: 60%;
-      }
-
-
-
-      .conditionIcon {
-        font-size: 6rem;
-      }
+  .conditionIcon {
+    font-size: 6rem;
+  }
 }
 
 /** All weather settings **/
 
-.drizzleLight, .rainLight, .rainShowerLight, .freezingRainLight {
-    background: linear-gradient(rgb(95, 96, 98), rgb(78, 78, 79), rgb(72, 72, 76));
-    color: rgb(223, 220, 207);
+.drizzleLight,
+.rainLight,
+.rainShowerLight,
+.freezingRainLight {
+  background: linear-gradient(
+    rgb(95, 96, 98),
+    rgb(78, 78, 79),
+    rgb(72, 72, 76)
+  );
+  color: rgb(223, 220, 207);
 }
 
-.drizzleModerate,.freezingDrizzleDense, .rainModerate, .snowFallModerate {
-    background: linear-gradient(rgb(80, 78, 78), rgb(64, 64, 65), rgb(60, 60, 61));
-    color: rgb(223, 220, 207);
+.drizzleModerate,
+.freezingDrizzleDense,
+.rainModerate,
+.snowFallModerate {
+  background: linear-gradient(
+    rgb(80, 78, 78),
+    rgb(64, 64, 65),
+    rgb(60, 60, 61)
+  );
+  color: rgb(223, 220, 207);
 }
 
-.rainHeavy, .freezingRainHeavy, .drizzleDense, .snowFallHeavy {
-    background: linear-gradient(rgb(60, 63, 63), rgb(56, 56, 58), rgb(42, 43, 44));
-    color: rgb(223, 220, 207);
+.rainHeavy,
+.freezingRainHeavy,
+.drizzleDense,
+.snowFallHeavy {
+  background: linear-gradient(
+    rgb(60, 63, 63),
+    rgb(56, 56, 58),
+    rgb(42, 43, 44)
+  );
+  color: rgb(223, 220, 207);
 }
 
-.freezingDrizzleLight, .snowFallModerate {
-    background: linear-gradient(70deg, rgb(135, 134, 133), rgb(125, 124, 113), rgb(105, 104, 102));
-    color: rgb(223, 220, 207);
+.freezingDrizzleLight,
+.snowFallModerate {
+  background: linear-gradient(
+    70deg,
+    rgb(135, 134, 133),
+    rgb(125, 124, 113),
+    rgb(105, 104, 102)
+  );
+  color: rgb(223, 220, 207);
 }
-
 
 .clearSky {
-    background: linear-gradient(30deg, rgb(85, 176, 236), rgba(29 137 209), rgb(24, 123, 189));
-    color: rgb(223, 220, 207);
+  background: linear-gradient(
+    30deg,
+    rgb(85, 176, 236),
+    rgba(29 137 209),
+    rgb(24, 123, 189)
+  );
+  color: rgb(223, 220, 207);
 }
 
-.mainlyClear, .partlyCloudy {
-    background: linear-gradient(160deg, rgb(105, 186, 240), rgb(115, 195, 250), rgb(130, 201, 248),  rgb(175, 245, 255));
-    color: rgb(56, 68, 95);
+.mainlyClear,
+.partlyCloudy {
+  background: linear-gradient(
+    160deg,
+    rgb(105, 186, 240),
+    rgb(115, 195, 250),
+    rgb(130, 201, 248),
+    rgb(175, 245, 255)
+  );
+  color: rgb(56, 68, 95);
 }
 
 .overcast {
-    background: linear-gradient(30deg, rgb(140, 139, 141), rgb(145 146 148), rgb(162 164 166));
-    color: rgb(27, 27, 31);
+  background: linear-gradient(
+    30deg,
+    rgb(140, 139, 141),
+    rgb(145 146 148),
+    rgb(162 164 166)
+  );
+  color: rgb(27, 27, 31);
 }
 
-.fog, .depositingtimeFog {
-    background: linear-gradient( rgb(181, 180, 182), rgb(216, 218, 223), rgb(233, 235, 238));
-    color: rgb(51, 47, 47);
+.fog,
+.depositingtimeFog {
+  background: linear-gradient(
+    rgb(181, 180, 182),
+    rgb(216, 218, 223),
+    rgb(233, 235, 238)
+  );
+  color: rgb(51, 47, 47);
 }
 
-.snowFallSlight, .snowGrains {
-    background: linear-gradient(rgb(90, 90, 91), rgb(130, 138, 138), rgb(141, 141, 142));
-    color: rgb(223, 220, 207);
+.snowFallSlight,
+.snowGrains {
+  background: linear-gradient(
+    rgb(90, 90, 91),
+    rgb(130, 138, 138),
+    rgb(141, 141, 142)
+  );
+  color: rgb(223, 220, 207);
 }
