@@ -55,6 +55,11 @@ input[type="text"] {
   border-radius: var(--radius-m);
 }
 
+.biggerFont {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
 .newsContainer {
   display: flex;
   justify-content: center;
@@ -112,14 +117,12 @@ a {
   display: inline-block;
   color: white;
   margin: 0;
-  padding-top: var(--padding-m);
-  padding-left: var(--padding-s);
+  padding-left: var(--padding-m);
 }
 
 .newsSource {
   float: left;
-  height: 40px;
-  width: 40px;
+  height: 100%;
   object-fit: contain;
 }
 
@@ -174,10 +177,10 @@ label {
 
 .sourceContainer {
   position: absolute;
-  padding: var(--padding-s);
+  padding: var(--padding-m);
   bottom: 0;
   left: 0;
-  width: calc(100% - var(--padding-s) * 2);
+  width: calc(100% - var(--padding-m) * 2);
   border-radius: 0 0 var(--radius-m) var(--radius-m);
   border-top: 1.7px solid rgb(45, 51, 54);
   background-color: var(--base-color-darker);
@@ -190,7 +193,6 @@ label {
 
 .compactView .newsItem {
   width: calc(100vw - 60px);
-  min-height: 50px;
   padding: 0;
   aspect-ratio: unset;
   height: unset;
@@ -213,7 +215,7 @@ label {
   float: right;
   width: 20%;
   position: unset;
-  height: calc(44px - var(--padding-m));
+  height: calc(44px - var(--padding-m) * 2);
   border-radius: 0 var(--radius-m) var(--radius-m) 0px;
   border: 1.7px solid var(--border-color);
 }
