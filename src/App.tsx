@@ -7,6 +7,7 @@ import SettingsPage from "./components/SettingsPage";
 import getNewsItems from "./helpers/getNewsItem";
 import sources from "./sources.json";
 import { sourceCategory } from "./types/types";
+import Announcer from "./components/Announcer";
 
 type newsItems = {
   title: string;
@@ -69,6 +70,7 @@ function App() {
 
   return (
     <>
+    <Announcer />
       <Header isOpen={settingsOpen} setIsOpen={setSettingsOpen} />
       <SettingsPage
         opened={settingsOpen}
