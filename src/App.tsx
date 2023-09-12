@@ -7,6 +7,8 @@ import SettingsPage from "./components/SettingsPage";
 import getNewsItems from "./helpers/getNewsItem";
 import sources from "./sources.json";
 import { sourceCategory } from "./types/types";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import NewsList from "./components/NewsList";
 
 type newsItems = {
   title: string;
@@ -16,6 +18,7 @@ type newsItems = {
 }[];
 
 function App() {
+  const queryClient = new QueryClient();
   const [news, setNews] = React.useState<newsItems>([]);
   const [settingsOpen, setSettingsOpen] = React.useState(false);
   const [weatherLocation, setWeatherLocation] = React.useState(() => {
@@ -30,9 +33,8 @@ function App() {
     }
     return JSON.parse(localStorage.getItem("compactView")!);
   });
-  const [currentIndex, setCurrentIndex] = React.useState(30);
+
   const [peaceMode, setPeaceMode] = React.useState(false);
-  const containerRef = React.createRef<HTMLDivElement>();
   const [newsSourcesToFetch, setNewsSourcesToFetch] = React.useState(() => {
     let newsCategories: Array<sourceCategory> = JSON.parse(
       JSON.stringify(sources)
@@ -56,20 +58,7 @@ function App() {
     getNewsItemsToSet();
   }, [settingsOpen, newsSourcesToFetch]);
 
-  useEffect(() => {
-    let observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setCurrentIndex(currentIndex + 30);
-        }
-      });
-    }, {});
 
-    if (containerRef.current) observer.observe(containerRef.current!);
-    return () => {
-      if (containerRef.current) observer.unobserve(containerRef.current);
-    };
-  }, [containerRef, currentIndex]);
 
   return (
     <>
@@ -93,37 +82,10 @@ function App() {
       {peaceMode && <PeaceMode setPeaceMode={setPeaceMode} />}
 
       {!peaceMode && (
-        <div
-          className={
-            compactView ? "newsContainer compactView" : "newsContainer"
-          }
-        >
-          {news.length > 0 ? (
-            news.map((n, i) => {
-              if (i < currentIndex) {
-                const lastElement = i === currentIndex - 10;
-                return (
-                  <div
-                    className={lastElement ? "last-child" : ""}
-                    ref={lastElement ? containerRef : null}
-                  >
-                    <NewsItem
-                      title={n.title}
-                      urlSource={n.link}
-                      imgSource={n.image}
-                      publishDate={n.date}
-                      sourceName={""}
-                      key={i}
-                    />
-                  </div>
-                );
-              }
-              return <></>;
-            })
-          ) : (
-            <PlaceholderNewsItemView />
-          )}
-        </div>
+        <QueryClientProvider client={queryClient}>
+          
+            <NewsList newsSourcesToFetch={newsSourcesToFetch} />
+        </QueryClientProvider>
       )}
     </>
   );
