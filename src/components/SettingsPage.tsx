@@ -2,6 +2,7 @@ import { FunctionComponent, useState } from "react";
 import { sourceArray, sourceToggle } from "../types/types";
 import Selectable from "./Selectable";
 import Modal from "./Modal";
+import { useMutation } from "@tanstack/react-query";
 
 interface SettingsPageProps {
   opened: boolean;
@@ -14,6 +15,8 @@ interface SettingsPageProps {
   peaceMode: boolean;
   setWeatherLocation: React.Dispatch<React.SetStateAction<string>>;
   weatherLocation: string;
+  setKioskMode: React.Dispatch<React.SetStateAction<boolean>>;
+  kioskMode: boolean;
 }
 
 const SettingsPage: FunctionComponent<SettingsPageProps> = ({
@@ -27,12 +30,48 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
   peaceMode,
   setWeatherLocation,
   weatherLocation,
+  kioskMode,
+  setKioskMode
 }) => {
+  const updateInformation = () => {
+    // Show modal if no news sources are selected
+    if (
+      localNewsSourcesToFetch.find(
+        (x: sourceArray) => x.enabled === true
+      ) === undefined
+    ) {
+      setModalOpen(true);
+      return;
+    }
+
+    setNewsSourcesToFetch(localNewsSourcesToFetch);
+    localStorage.setItem(
+      "newsSources",
+      JSON.stringify(localNewsSourcesToFetch)
+    );
+    localStorage.setItem(
+      "kioskMode",
+      localKioskMode ? "true" : "false"
+    );
+    localStorage.setItem(
+      "compactView",
+      localCompactView ? "true" : "false"
+    );
+    localStorage.setItem("location", localLocation);
+    setCompactView(localCompactView);
+    setOpened(false);
+    setPeaceMode(localZenMode);
+    setWeatherLocation(localLocation);
+    setKioskMode(localKioskMode);
+    console.log("test")
+  }
+
   const [localNewsSourcesToFetch, setLocalNewsSourcesToFetch] =
     useState(newsSourcesToFetch);
   const [modalOpen, setModalOpen] = useState(false);
   const [localCompactView, setLocalCompactView] = useState(compactView);
   const [localZenMode, setLocalZenMode] = useState(false);
+  const [localKioskMode, setLocalKioskMode] = useState(kioskMode);
   const [localLocation, setLocalLocation] = useState(weatherLocation);
   return opened ? (
     <>
@@ -131,6 +170,12 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
             checked={localCompactView}
             setChecked={() => setLocalCompactView(!localCompactView)}
           />
+          <h3>Kiosk modus</h3>
+          <Selectable
+            title={"Kiosk modus voor TV's, informatiedisplays, narrowcasting setups"}
+            setChecked={() => setLocalKioskMode(!localKioskMode)}
+            checked={localKioskMode}
+          />
           <h3>Overige instellingen</h3>
           <p>Peaceful mode</p>
           <Selectable
@@ -151,31 +196,7 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
           </button>
           <button
             className="buttonRight"
-            onClick={() => {
-              if (
-                localNewsSourcesToFetch.find(
-                  (x: sourceArray) => x.enabled === true
-                ) === undefined
-              ) {
-                setModalOpen(true);
-                return;
-              }
-
-              setNewsSourcesToFetch(localNewsSourcesToFetch);
-              localStorage.setItem(
-                "newsSources",
-                JSON.stringify(localNewsSourcesToFetch)
-              );
-              localStorage.setItem(
-                "compactView",
-                localCompactView ? "true" : "false"
-              );
-              localStorage.setItem("location", localLocation);
-              setCompactView(localCompactView);
-              setOpened(false);
-              setPeaceMode(localZenMode);
-              setWeatherLocation(localLocation);
-            }}
+            onClick={() => updateInformation()}
           >
             Opslaan
           </button>

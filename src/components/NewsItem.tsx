@@ -87,6 +87,7 @@ const NewsItem = ({
           <div className="sourceContainer">
             <h4>{time}</h4>
             <img
+              loading="lazy"
               alt={sourceName}
               className="newsSource"
               src={image}

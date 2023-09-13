@@ -215,7 +215,7 @@ label {
   float: right;
   width: 20%;
   position: unset;
-  height: calc(44px - var(--padding-m) * 2);
+  height: 20px;
   border-radius: 0 var(--radius-m) var(--radius-m) 0px;
   border: 1.7px solid var(--border-color);
 }

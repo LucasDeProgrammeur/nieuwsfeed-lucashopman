@@ -9,10 +9,12 @@ import ErrorPage from "./ErrorPage";
 
 interface NewsListProps {
   newsSourcesToFetch: sourceToggle[];
+  compactedView: boolean;
 }
 
 const NewsList: FunctionComponent<NewsListProps> = ({
   newsSourcesToFetch,
+  compactedView
 }: NewsListProps) => {
   const [currentIndex, setCurrentIndex] = React.useState(30);
   const containerRef = React.createRef<HTMLDivElement>();
@@ -42,6 +44,11 @@ const NewsList: FunctionComponent<NewsListProps> = ({
     },
   });
 
+  useEffect(() => {
+    queryClient.invalidateQueries(["test"])
+    query.refetch()
+  }, [newsSourcesToFetch])
+
   if (query.isLoading) {
     return (
         <div className={"newsContainer"}>
@@ -57,7 +64,7 @@ const NewsList: FunctionComponent<NewsListProps> = ({
   }
 
   return (
-    <div className={"newsContainer"}>
+    <div className={compactedView ? "newsContainer compactView" : "newsContainer"}>
       {query.data?.map((n, i) => {
         if (i < currentIndex) {
           const lastElement = i === currentIndex - 10;

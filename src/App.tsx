@@ -9,6 +9,7 @@ import sources from "./sources.json";
 import { sourceCategory } from "./types/types";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import NewsList from "./components/NewsList";
+import KioskMode from "./components/KioskMode";
 
 type newsItems = {
   title: string;
@@ -21,6 +22,12 @@ function App() {
   const queryClient = new QueryClient();
   const [news, setNews] = React.useState<newsItems>([]);
   const [settingsOpen, setSettingsOpen] = React.useState(false);
+  const [kioskMode, setKioskMode] = React.useState(() => {
+    if (localStorage.getItem("kioskMode") === null) {
+      return false;
+    }
+    return JSON.parse(localStorage.getItem("kioskMode")!);
+  });
   const [weatherLocation, setWeatherLocation] = React.useState(() => {
     if (localStorage.getItem("location") === null) {
       return "De Bilt";
@@ -78,15 +85,23 @@ function App() {
         setPeaceMode={setPeaceMode}
         setWeatherLocation={setWeatherLocation}
         weatherLocation={weatherLocation}
+        kioskMode={kioskMode}
+        setKioskMode={setKioskMode}
       />
       {peaceMode && <PeaceMode setPeaceMode={setPeaceMode} />}
+      
 
-      {!peaceMode && (
+      {
+      !peaceMode && !kioskMode && (
         <QueryClientProvider client={queryClient}>
           
-            <NewsList newsSourcesToFetch={newsSourcesToFetch} />
+            <NewsList newsSourcesToFetch={newsSourcesToFetch} compactedView={compactView} />
         </QueryClientProvider>
       )}
+
+      {
+        kioskMode && !peaceMode && <QueryClientProvider client={queryClient}><KioskMode /> </QueryClientProvider>
+      }
     </>
   );
 }
