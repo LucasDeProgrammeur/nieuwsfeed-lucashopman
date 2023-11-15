@@ -170,12 +170,14 @@ const SettingsPage: FunctionComponent<SettingsPageProps> = ({
             checked={localCompactView}
             setChecked={() => setLocalCompactView(!localCompactView)}
           />
+          <div className="desktopOnly">
           <h3>Kiosk modus</h3>
           <Selectable
             title={"Kiosk modus voor TV's, informatiedisplays, narrowcasting setups"}
             setChecked={() => setLocalKioskMode(!localKioskMode)}
             checked={localKioskMode}
           />
+          </div>
           <h3>Overige instellingen</h3>
           <p>Peaceful mode</p>
           <Selectable

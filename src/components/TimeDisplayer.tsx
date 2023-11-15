@@ -1,10 +1,17 @@
+import { useEffect, useState } from "react";
+
 const TimeDisplayer = () => {
-  
-  let date = new Date(new Date().toLocaleString("en-US", {timeZone: "Europe/Amsterdam"}));
+  const [date, setDate] = useState(new Date(new Date().toLocaleString("en-US", {timeZone: "Europe/Amsterdam"})))
+
+  useEffect(() => {
+    setInterval(() => {
+      setDate(new Date(new Date().toLocaleString("en-US", {timeZone: "Europe/Amsterdam"})))
+    }, 60000)
+  }, [])
   return (
     <>
       <div className="timePanel">
-        <p>{date.getHours() + ":" + date.getMinutes().toString().slice(-2)}</p>
+        <p>{date.getHours() + ":" + date.getMinutes().toString().padStart(2, "0")}</p>
       </div>
     </>
   );
