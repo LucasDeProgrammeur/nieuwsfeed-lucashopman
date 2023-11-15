@@ -73,6 +73,7 @@ function App() {
         isOpen={settingsOpen}
         weatherLocation={weatherLocation}
         setIsOpen={setSettingsOpen}
+        kioskMode={kioskMode}
       />
       <SettingsPage
         opened={settingsOpen}

@@ -1,78 +1,100 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import "../styles/KioskMode.css";
 import getNewsItems from "../helpers/getNewsItem";
 import { sourceToggle } from "../types/types";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const KioskMode = () => {
-  // Access the client
-  const queryClient = useQueryClient();
-
+  const refreshInterval = 120000;
+  const tickerRef = useRef<HTMLDivElement>(null);
+  const newsItemsAmountAsHeadline = 6;
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [images, setImages] = useState([] as string[])
-  const [titles, setTitles] = useState([] as string[])
-
+  const [animationDuration, setAnimationDuration] = useState(20);
+  const [timer, setTimer] = useState(null as unknown as NodeJS.Timer);
 
   // Queries
   const query = useQuery({
-    queryKey: ["test"],
+    queryKey: ["kiosk"],
+    refetchInterval: refreshInterval,
     queryFn: async () => {
       return getNewsItems([
-        { enabled: true, sources: [{ name: "nu", enabled: true }] },
+        { enabled: true, sources: [{ name: "nos", enabled: true }] },
       ] as unknown as Array<sourceToggle>);
     },
     onSuccess: (e) => {
-        const length = 6
-        const timer = setInterval(() => {
-            setCurrentIndex((prevIndex) => (prevIndex + 1) % length);
-            console.log(currentIndex)
-        }, 2000);
-    }
+      const animationScrollSpeed = 6;
+      const mainNewsLineSwitchms = 8000;
+      // Set a timer for switching between highlighted news item.
+      // Put it in state so that it can be checked whether its been instantiated between refreshes
+      if (!timer) {
+        setTimer(
+          setInterval(() => {
+            setCurrentIndex(
+              (prevIndex) => (prevIndex + 1) % newsItemsAmountAsHeadline
+            );
+            console.log(currentIndex);
+          }, mainNewsLineSwitchms)
+        );
+      }
+      setAnimationDuration(e.length * animationScrollSpeed);
+    },
   });
 
+  useEffect(() => {
+    // Dynamically get width of ticker items to determine full width
+    if (tickerRef.current) {
+      const totalWidth = Array.from(tickerRef.current.children).reduce(
+        (acc, child) => acc + child.getBoundingClientRect().width,
+        0
+      );
 
-
-
+      tickerRef.current.style.width = `${totalWidth}px`;
+    }
+  }, [query.data]);
 
   return (
     <>
       <div className="kioskContainer">
         <div className="kioskNewsContainer">
-            <img src={query.data ? query.data![currentIndex].image: ""} />
-          {query.data?.map((e, i) => {
-          if (i < 5) {
-            
-            if (i === currentIndex) {
-              return (
-                <>
-                  <h2 className="newsItemHighlight">{e.title}</h2>
-                  </>
-              );
-            }
-            return <h2>{e.title}</h2>
-          }
-        })}
-
-          {/* {titles.length &&
-            titles.map((e, i) => {
+          <img
+            alt={query.data ? query.data![currentIndex].title : ""}
+            src={query.data ? query.data![currentIndex].image : ""}
+          />
+          {query.data
+            ?.filter((e, i) => i < newsItemsAmountAsHeadline)
+            .map((e, i) => {
               if (i === currentIndex) {
                 return (
                   <>
-                    <img src={images[i]} />
-                    <h2>{e}</h2>
+                    <h2 className="newsItemHighlight">{e.title}</h2>
                   </>
                 );
               }
-
-              return <h2>{e}</h2>;
-            })} */}
+              return <h2>{e.title}</h2>;
+            })}
         </div>
       </div>
       <div className="tickerContainer">
-        <div className="ticker">
-          {query.data?.map((e) => {
-            return <div className="tickerItem">{e.title}</div>;
-          })}
+        <div
+          ref={tickerRef}
+          className="ticker"
+          style={{ animationDuration: `${animationDuration}s` }}
+        >
+          {query.data &&
+            query.data
+              .filter((e, i) => i > newsItemsAmountAsHeadline)
+              .map((e, i) => {
+                const letterLengthWeight = 12;
+                const contentWidth = e.title.length * letterLengthWeight;
+                return (
+                  <div
+                    className="tickerItem"
+                    style={{ width: `${contentWidth}px` }}
+                  >
+                    {e.title}
+                  </div>
+                );
+              })}
         </div>
       </div>
     </>

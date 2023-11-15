@@ -1,13 +1,22 @@
 .kioskContainer {
     padding: var(--padding-l)   ;
+    overflow: hidden;
+}
 
+.kioskHeader .widgetEnabled {
+    background-color: transparent !important;
+    color: white !important;
+}
+
+.kioskHeader .hamburger {
+    display: none;
 }
 
 .kioskContainer img {
     width: 24vw;
     object-fit: cover;
     height: 40vh;
-    display:    block;
+    display: block;
     float: left;
     border-radius: var(--radius-l);
 }
@@ -28,15 +37,20 @@
     padding-left: var(--padding-l);
     float: right;
     margin: var(--margin-m);
-    font-size: 1.2em;
+    font-size: 1.5em;
     width: calc(100% - 24vw - 100px);
 }
 @keyframes ticker {
     0% {
-      transform: translate3d(0, 0, 0);
+      transform: translate3d(20%, 0, 0);
       visibility: visible;
+      opacity: 0;
     }
-  
+
+    1% {
+        opacity: 1;
+    }
+
     100% {
       transform: translate3d(-100%, 0, 0);
     }
@@ -48,21 +62,21 @@
     overflow: hidden;
     height: 80px;
     background-color: var(--base-color-lighter);
-
+    width: 100vw; 
 }
 
 .ticker {
-    animation: ticker 220s infinite linear;
-
-    width: 1000%;
+    animation: ticker infinite linear;
     height: 80px;
 }
 
 .tickerItem {
+    display: inline;
     font-size: 1.5em;
-    height: 100px;
-    display: inline-block;
     color: white;
-    padding: 0 40px;
+    padding: 0 20px; 
     line-height: 80px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

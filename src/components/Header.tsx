@@ -7,14 +7,16 @@ type HeaderProps = {
   isOpen: boolean;
   setIsOpen: any;
   weatherLocation: string;
+  kioskMode: boolean;
 };
 
-const Header = ({ isOpen, setIsOpen, weatherLocation }: HeaderProps) => {
+const Header = ({ isOpen, setIsOpen, weatherLocation, kioskMode }: HeaderProps) => {
   return (
-    <header>
+    <header className={kioskMode ? "kioskHeader" : ""}>
+
       {/* <h2>Powered by lucashopman.nl</h2> */}
       <TimeDisplayer />
-      <WeatherDisplayer weatherLocation={weatherLocation} />
+      <WeatherDisplayer weatherLocation={weatherLocation} kioskMode={kioskMode}/>
       <h1>Nieuwsfeed</h1>
       <Hamburger />
       <SettingsCog

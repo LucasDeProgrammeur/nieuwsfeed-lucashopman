@@ -8,6 +8,7 @@ interface Props {
   weatherCodes: Array<WeatherCode>;
   setWidgetEnabled: React.Dispatch<React.SetStateAction<boolean>>;
   weatherLocation: string;
+  kioskMode: boolean;
 }
 
 const WeatherWidget = ({
@@ -15,6 +16,7 @@ const WeatherWidget = ({
   weatherCodes,
   setWidgetEnabled,
   weatherLocation,
+  kioskMode
 }: Props) => {
   const [weatherCodeEntry, setWeatherCodeEntry] = useState(weatherCodes[0]);
   useEffect(() => {
@@ -27,7 +29,7 @@ const WeatherWidget = ({
     );
   }, [weather, weatherCodes]);
   return weatherCodeEntry ? (
-    <div className={"weatherWidget " + weatherCodeEntry.condition}>
+    <div className={!kioskMode ? "weatherWidget " + weatherCodeEntry.condition : "weatherWidget " + weatherCodeEntry.condition + " kioskWeather"}>
       <section className="topWeatherInfo">
         <h3>{weather.current_weather.temperature}</h3>
         <p className="tempIndicator"> °C</p>

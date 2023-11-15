@@ -7,6 +7,34 @@ header {
   margin-bottom: 20px;
 }
 
+.kioskHeader {
+  font-size: 2em;
+  padding: var(--padding-l);
+}
+
+.kioskHeader h1 {
+  font-size: 1.2em;
+}
+
+.kioskHeader .weatherWidget {
+  position: absolute !important ;
+  bottom: 0;
+  font-size: 0.7em;
+  width: 30vw;
+  top: 60vh;
+  height: 20vh !important;
+}
+
+.kioskHeader .weatherWidget canvas {
+  display: none !important;
+}
+
+.kioskHeader .weatherWidget canvas {
+  height: 150px !important;
+  width: 250px !important;
+}
+
+
 header p {
   display: table-cell;
   padding: 0 5px;

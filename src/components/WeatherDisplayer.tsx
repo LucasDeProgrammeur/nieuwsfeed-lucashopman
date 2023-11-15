@@ -6,9 +6,10 @@ import { json } from "stream/consumers";
 
 interface WeatherDisplayerProps {
   weatherLocation: string;
+  kioskMode: boolean;
 }
 
-const WeatherDisplayer = ({ weatherLocation }: WeatherDisplayerProps) => {
+const WeatherDisplayer = ({ weatherLocation, kioskMode }: WeatherDisplayerProps) => {
   const [temp, setTemp] = useState(0);
   const [currentWeatherCode, setCurrentWeatherCode] = useState(0);
   const [weather, setWeather] = useState({});
@@ -148,6 +149,7 @@ const WeatherDisplayer = ({ weatherLocation }: WeatherDisplayerProps) => {
       setTemp(weather.current_weather.temperature);
       setCurrentWeatherCode(weather.current_weather.weathercode);
       setWeather(weather);
+      if (kioskMode) setWidgetEnabled(true)
     };
     fetchData();
   }, [weatherLocation]);
@@ -175,6 +177,7 @@ const WeatherDisplayer = ({ weatherLocation }: WeatherDisplayerProps) => {
           weather={weather}
           weatherCodes={weatherCodes}
           weatherLocation={weatherLocation}
+          kioskMode={kioskMode}
         />
       )}
     </>
